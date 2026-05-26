@@ -324,77 +324,22 @@ footer strong{color:#fff}
 <div class="page active" id="page-kanban">
 
   <div class="summary-row" id="summary-strip">
-    <div class="sum-card bl"><div class="lbl">Total Tickets</div><div class="val">24</div><div class="hint">Sprint 4B</div></div>
-    <div class="sum-card gr"><div class="lbl">Completed</div><div class="val" style="color:var(--green)">9</div><div class="hint">37.5% done</div></div>
-    <div class="sum-card bl"><div class="lbl">In Progress</div><div class="val" style="color:var(--blue)">7</div><div class="hint">On track</div></div>
-    <div class="sum-card am"><div class="lbl">In Review</div><div class="val" style="color:#D97706">4</div><div class="hint">Pending approval</div></div>
-    <div class="sum-card re"><div class="lbl">Active Risks</div><div class="val" style="color:var(--red)">6</div><div class="hint">2 High · 3 Med</div></div>
-    <div class="sum-card"><div class="lbl">Team Members</div><div class="val">18</div><div class="hint">4 roles · 3 squads</div></div>
+    <div class="sum-card bl"><div class="lbl">Total Tickets</div><div class="val">16</div><div class="hint">Sprint · May</div></div>
+    <div class="sum-card gr"><div class="lbl">Done</div><div class="val" style="color:var(--green)">2</div><div class="hint">12% complete</div></div>
+    <div class="sum-card am"><div class="lbl">Development &amp; Test</div><div class="val" style="color:#D97706">6</div><div class="hint">Dev / UAT</div></div>
+    <div class="sum-card bl"><div class="lbl">Release</div><div class="val" style="color:var(--blue)">7</div><div class="hint">Pen test / Release</div></div>
+    <div class="sum-card"><div class="lbl">Solution Design</div><div class="val">1</div><div class="hint">PRD / ISA</div></div>
+    <div class="sum-card re"><div class="lbl">Active Risks</div><div class="val" style="color:var(--red)">11</div><div class="hint">5 High · 6 Med</div></div>
   </div>
 
   <div class="sec-hd">
     <div class="sec-bar" style="background:var(--blue)"></div>
-    <div class="sec-ttl">Jira Ticket Kanban Board</div>
-    <div class="sec-pill">Sprint 4B</div>
+    <div class="sec-ttl">Jira Ticket Kanban Board — Phase View</div>
+    <div class="sec-pill">Sprint May · 16 tickets</div>
     <div class="sec-line"></div>
   </div>
 
-  <div class="kanban" id="kanban-board">
-    <!-- BACKLOG -->
-    <div class="kb-col col-gy">
-      <div class="kb-head"><span class="cname">Backlog</span><span class="ccnt">4</span></div>
-      <div class="kb-cards">
-        <div class="kb-card"><div class="kc-id">SPQI-312</div><div class="kc-title">A+ Homepage LBS Recommendation v2</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Frontend</span><div class="kc-av av-bl" style="background:var(--blue)">DP</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-318</div><div class="kc-title">Merchant Content Library API Integration</div><div class="kc-meta"><span class="kc-pri p-l">Low</span><span class="kc-tag">Backend</span><div class="kc-av" style="background:#0D9488">AL</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-324</div><div class="kc-title">ISC Supply Management Sync — Phase 2</div><div class="kc-meta"><span class="kc-pri p-l">Low</span><span class="kc-tag">Arch</span><div class="kc-av" style="background:#7C3AED">CX</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-330</div><div class="kc-title">Dual-mode Access Control Documentation</div><div class="kc-meta"><span class="kc-pri p-l">Low</span><span class="kc-tag">Docs</span><div class="kc-av" style="background:#BE185D">FL</div></div></div>
-      </div>
-    </div>
-    <!-- IN PROGRESS -->
-    <div class="kb-col col-bl">
-      <div class="kb-head"><span class="cname">In Progress</span><span class="ccnt">7</span></div>
-      <div class="kb-cards">
-        <div class="kb-card"><div class="kc-id">SPQI-295</div><div class="kc-title">Mini-Program Aggregation Page Acceleration</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Perf</span><div class="kc-av" style="background:#DC4E2D">SD</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-301</div><div class="kc-title">6122 Merchant Homepage DZ Mini-Program</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Backend</span><div class="kc-av" style="background:#0D9488">AL</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-307</div><div class="kc-title">Brand Search Results Brandbox Feature</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Frontend</span><div class="kc-av av-bl">DP</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-309</div><div class="kc-title">Tabao Push Integration — ISC Dependency</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Infra</span><div class="kc-av" style="background:#7C3AED">MK</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-315</div><div class="kc-title">Visually Impaired User Support SPRQI-3715</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">A11y</span><div class="kc-av" style="background:#BE185D">FL</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-320</div><div class="kc-title">Google Maps API Province Geocoding</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">API</span><div class="kc-av" style="background:#7C3AED">CX</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-326</div><div class="kc-title">Coupon Sync Config — Supply Mgmt</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Backend</span><div class="kc-av" style="background:#DC4E2D">SD</div></div></div>
-      </div>
-    </div>
-    <!-- IN REVIEW -->
-    <div class="kb-col col-og">
-      <div class="kb-head"><span class="cname">In Review</span><span class="ccnt">4</span></div>
-      <div class="kb-cards">
-        <div class="kb-card"><div class="kc-id">SPQI-280</div><div class="kc-title">A+ Market Release — Feature Flag Sign-off</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Release</span><div class="kc-av av-bl">DP</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-287</div><div class="kc-title">Backend Network Access Optimisation</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Infra</span><div class="kc-av" style="background:#7C3AED">MK</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-293</div><div class="kc-title">PD Scope Change — Signed-off Docs Update</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Docs</span><div class="kc-av" style="background:#BE185D">FL</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-298</div><div class="kc-title">ISC Call Center Top 8 Issues Resolution</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Support</span><div class="kc-av" style="background:#0D9488">AL</div></div></div>
-      </div>
-    </div>
-    <!-- TESTING -->
-    <div class="kb-col col-pu">
-      <div class="kb-head"><span class="cname">Testing / UAT</span><span class="ccnt">4</span></div>
-      <div class="kb-cards">
-        <div class="kb-card"><div class="kc-id">SPQI-268</div><div class="kc-title">Homepage Loading Speed Cache Optimisation</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">QA</span><div class="kc-av" style="background:#DC4E2D">SD</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-275</div><div class="kc-title">Resource Rotation — Multi-sprint Allocation</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">PM</span><div class="kc-av av-bl">DP</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-278</div><div class="kc-title">ACS Personnel Info Transparency Compliance</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Legal</span><div class="kc-av" style="background:#7C3AED">CX</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-282</div><div class="kc-title">App Loading Speed Issues — ISC Resolution</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">QA</span><div class="kc-av" style="background:#0D9488">AL</div></div></div>
-      </div>
-    </div>
-    <!-- DONE -->
-    <div class="kb-col col-gr">
-      <div class="kb-head"><span class="cname">Done</span><span class="ccnt">9</span></div>
-      <div class="kb-cards">
-        <div class="kb-card"><div class="kc-id">SPQI-245</div><div class="kc-title">Local Loading Cache v1 Deployment</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">SD</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-252</div><div class="kc-title">A+ Expert PD Resource Assignment</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">DP</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-261</div><div class="kc-title">ISC BAs Dubai Co-location Arrangement</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">FL</div></div></div>
-        <div class="kb-card"><div class="kc-id">SPQI-266</div><div class="kc-title">Maker-Checker Mechanism — Arch Review</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">MK</div></div></div>
-        <div class="kb-card"><div class="kc-id">+5 more</div><div class="kc-title">5 additional tickets completed this sprint</div><div class="kc-meta"><span class="kc-pri p-l">Various</span><span class="kc-tag">Done ✓</span></div></div>
-      </div>
-    </div>
-  </div>
+  <div class="kanban" id="kanban-board"><div class="kb-col col-gy"><div class="kb-head"><span class="cname">Backlog</span><span class="ccnt">0</span></div><div class="kb-cards"><div style="padding:14px;text-align:center;color:var(--muted);font-size:10px">No tickets</div></div></div><div class="kb-col col-bl"><div class="kb-head"><span class="cname">Requirement Analysis &amp; Solution Design</span><span class="ccnt">1</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-4578</div><div class="kc-title">Deeplink for mini app specific page cannot be opened</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">ISA / PRD</span><div class="kc-av" style="background:var(--blue)">Yi</div></div></div></div></div><div class="kb-col col-og"><div class="kb-head"><span class="cname">Development &amp; Test</span><span class="ccnt">6</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-316 · SPRQI-2040</div><div class="kc-title">Integration with User Behavior Analysis Tool</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:#DC4E2D">Li</div></div></div><div class="kb-card"><div class="kc-id">SPQI-2127 · SPRQI-7836</div><div class="kc-title">Accessibility Improvements for Visually Impaired Users – Phase 2</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:var(--blue)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4573</div><div class="kc-title">Display Miles &amp; Smiles Card in SuperQi Cards Page with Mini App Button</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">DEV</span><div class="kc-av" style="background:#DC4E2D">Li</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4779</div><div class="kc-title">Remove all name validation rules to support all characters</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:#DC4E2D">Li</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4836</div><div class="kc-title">A+ International Network – Settlement</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:var(--blue)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-1782 · SPRQI-6274</div><div class="kc-title">Enable Secure View Card Details</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:var(--blue)">Yi</div></div></div></div></div><div class="kb-col col-pu"><div class="kb-head"><span class="cname">Release</span><span class="ccnt">7</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-307 · SPRQI-6208</div><div class="kc-title">Display International Velocity Limits (Remaining Amounts)</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Pending</span><div class="kc-av" style="background:var(--blue)">Yi</div></div></div><div class="kb-card"><div class="kc-id">SPQI-313 · SPRQI-3715</div><div class="kc-title">Accessibility Improvements for Visually Impaired Users – Phase 1</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-1239</div><div class="kc-title">Connect to Alipay+ CsB – Phase 1</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-1238</div><div class="kc-title">A+ Int. Network – BSC QR Code, Business to Customer</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4637</div><div class="kc-title">Groupon homepage selected time period not preserved</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:#7C3AED">Da</div></div></div><div class="kb-card"><div class="kc-id">SPQI-5313</div><div class="kc-title">Groupon Approval Whitelist</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:#0D9488">AL</div></div></div><div class="kb-card"><div class="kc-id">SPQI-5471</div><div class="kc-title">Update the Benefits Category section of World Elite</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:#0D9488">AL</div></div></div></div></div><div class="kb-col col-gr"><div class="kb-head"><span class="cname">Done</span><span class="ccnt">2</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-312 · SPRQI-5122</div><div class="kc-title">Pay by Qi (SuperQi as a payment method) – Phase 2 (SDK)</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4719</div><div class="kc-title">New Scope For MiniApps &quot;account_list&quot;</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">AL</div></div></div></div></div></div>
 </div>
 
 <!-- ══════════════════════════════════
@@ -403,80 +348,96 @@ footer strong{color:#fff}
 <div class="page" id="page-risk">
   <div class="sec-hd">
     <div class="sec-bar" style="background:var(--red)"></div>
-    <div class="sec-ttl">Project Risk Register</div>
-    <div class="sec-pill" style="background:#FFF0EE;color:var(--red)">6 Active Risks</div>
+    <div class="sec-ttl">Project Risk Register · 项目风险登记册</div>
+    <div class="sec-pill" style="background:#FFF0EE;color:var(--red)">11 Active · 5 High</div>
     <div class="sec-line"></div>
   </div>
   <table class="risk-tbl" id="risk-table">
     <thead>
       <tr>
-        <th>Risk ID</th><th>Risk Description</th><th>Category</th>
-        <th>Likelihood</th><th>Impact</th><th>RAG Status</th>
-        <th>Owner</th><th>Mitigation Action</th><th>Due Date</th>
+        <th style="width:48px">ID</th><th>Risk Description · 风险描述</th>
+        <th>Criticality<br>严重程度</th><th>RAG</th><th>Owner<br>责任方</th>
+        <th>Mitigation Strategy &amp; Action · 缓解措施</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">RISK-001</td>
-        <td style="font-weight:600">Tabao push dependency not resolved — ISC release blocked</td>
-        <td><span class="kc-tag">Technical</span></td>
-        <td><span class="imp imp-h">High</span></td><td><span class="imp imp-h">High</span></td>
-        <td><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-        <td>Mike (EA) / Danny (PM)</td>
-        <td>Escalate to ISC Tech Lead; interim stub deployed</td>
-        <td style="color:var(--red);font-weight:600">26 May</td>
-      </tr>
-      <tr>
-        <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">RISK-002</td>
-        <td style="font-weight:600">A+ Personnel transparency data exposed to ISC without approval</td>
-        <td><span class="kc-tag">Compliance</span></td>
-        <td><span class="imp imp-m">Medium</span></td><td><span class="imp imp-h">High</span></td>
-        <td><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-        <td>Flora (BA) / Legal</td>
-        <td>Data masking enforced; Legal review 24 May</td>
-        <td style="color:var(--red);font-weight:600">24 May</td>
-      </tr>
-      <tr>
-        <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">RISK-003</td>
-        <td style="font-weight:600">Google Maps API monthly cost overrun vs. budget estimate</td>
-        <td><span class="kc-tag">Financial</span></td>
-        <td><span class="imp imp-m">Medium</span></td><td><span class="imp imp-m">Medium</span></td>
-        <td><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-        <td>Chen (EA) / Finance</td>
-        <td>Usage cap $50k/mo; alternate provider evaluated</td>
-        <td>30 May</td>
-      </tr>
-      <tr>
-        <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">RISK-004</td>
-        <td style="font-weight:600">Insufficient BD team capacity for merchant content onboarding</td>
-        <td><span class="kc-tag">Resource</span></td>
-        <td><span class="imp imp-m">Medium</span></td><td><span class="imp imp-m">Medium</span></td>
-        <td><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-        <td>Danny (PM)</td>
-        <td>2 contract BAs requested; backlog prioritised</td>
-        <td>03 Jun</td>
-      </tr>
-      <tr>
-        <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">RISK-005</td>
-        <td style="font-weight:600">Scope fragmentation across Market Release — misaligned sprints</td>
-        <td><span class="kc-tag">Schedule</span></td>
-        <td><span class="imp imp-m">Medium</span></td><td><span class="imp imp-m">Medium</span></td>
-        <td><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-        <td>Danny (PM) / PD Lead</td>
-        <td>Sprint planning locked; scope freeze until Market Release</td>
-        <td>31 May</td>
-      </tr>
-      <tr>
-        <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">RISK-006</td>
-        <td style="font-weight:600">Maker-checker mechanism approval latency in production</td>
-        <td><span class="kc-tag">Operational</span></td>
-        <td><span class="imp imp-l">Low</span></td><td><span class="imp imp-m">Medium</span></td>
-        <td><span class="rag rag-g"><span class="rag-dot"></span>GREEN</span></td>
-        <td>Alex (Dev)</td>
-        <td>SLA monitoring deployed; escalation path documented</td>
-        <td>15 Jun</td>
-      </tr>
-    </tbody>
+    <tbody><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-01</td>
+      <td><div style="font-weight:600;margin-bottom:3px">5B Release Delay Due to Penetration Test Postponement. Because of the Iraq public holiday (May 21–27), ISC&#x27;s security team postponed the penetration test, making the planned Jun 1 5B release no longer achievable.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">渗透测试推迟导致 5B 版本延期。受伊拉克公共假期（5月21–27日）影响，ISC 安全团队推迟了渗透测试，原定 6月1日 的 5B 发布已无法实现。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC / A+</td>
+      <td><div style="margin-bottom:3px">Re-confirm the revised penetration test completion date with ISC and jointly reschedule the 5B release timeline.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">与 ISC 重新确认渗透测试完成日期，并共同调整 5B 发布计划。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-02</td>
+      <td><div style="font-weight:600;margin-bottom:3px">UAT Sign-off Delays on Multiple Integration Features. For several May integration features ISC only signed off the ISA documents on May 20 (the final UAT day), causing UAT delays that may impact the release schedule.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">多个集成功能的 UAT 签核延迟。多个 5月集成功能的 ISA 文档 ISC 直到 5月20日（UAT 最后一天）才签核，导致 UAT 延期并可能影响整体发布计划。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC</td>
+      <td><div style="margin-bottom:3px">ISC is requested to expedite the sign-off process to avoid further UAT and release delays.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请求 ISC 加快签核流程，避免 UAT 与发布进一步延期。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-03</td>
+      <td><div style="font-weight:600;margin-bottom:3px">Mulesoft Production Deployment Blocked. Following the earlier Mulesoft dev delay, production deployment is now blocked, impacting Supply Platform, Merchant Voucher, SPQI-312 (Pay by Qi Phase 2) and SPQI-307 (Velocity Limits).</div><div style="color:var(--muted);font-size:10px;line-height:1.5">Mulesoft 生产部署受阻。继此前 Mulesoft 开发延迟后，其生产部署目前被阻塞，影响 Supply Platform、Merchant Voucher、SPQI-312（Pay by Qi 二期）及 SPQI-307（额度展示）。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC</td>
+      <td><div style="margin-bottom:3px">ISC is requested to urgently accelerate Mulesoft&#x27;s production release to unblock the affected features.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请求 ISC 紧急加速 Mulesoft 生产发布，以解除相关功能的阻塞。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-04</td>
+      <td><div style="font-weight:600;margin-bottom:3px">A+ Network Onboarding Contract Unsigned — Risk of Further Delay. ISC cancelled the 5A release and merged 5A and network-onboarding features into 5B (originally Jun 1). With the pending pen test, network onboarding may not go live until July. Pen-test findings on A+&#x27;s network are being clarified; cashback refund needs a business-process adjustment.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">A+ 网络接入合同未签署——存在进一步延期风险。ISC 取消 5A 发布并将 5A 与网络接入功能合并至 5B（原定 6月1日）。受渗透测试待定影响，网络接入可能要到 7月 才上线。安全团队就 A+ 网络提出的问题正在澄清；返现退款涉及业务流程调整。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--red)">A+ / ISC</td>
+      <td><div style="margin-bottom:3px">Cashback short-term fix confirmed; long-term solution under discussion between PD and ISC BA/Marketing. A+ to continue follow-up on contract signing and pen-test scheduling.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">返现短期方案已确认；长期方案由 PD 与 ISC BA/市场团队讨论中。A+ 将持续跟进合同签署与渗透测试排期。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-05</td>
+      <td><div style="font-weight:600;margin-bottom:3px">Google API Fees Unexpectedly High. Root cause identified by dev; the relevant business function has been disabled. A technical improvement plan has been drafted and shared with ISC, pending ISC confirmation.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">Google API 费用异常偏高。开发团队已定位根因，相关业务功能已禁用。技术改进方案已起草并与 ISC 共享，待 ISC 确认。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+ / ISC</td>
+      <td><div style="margin-bottom:3px">Root cause identified and explained to ISC. ISC confirmation of the remediation plan is required.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">根因已定位并向 ISC 说明。需 ISC 确认修复方案。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-06</td>
+      <td><div style="font-weight:600;margin-bottom:3px">RCA Report Submitted — Awaiting ISC Response. ISC security did not attend the May 21 clarification session. A+ shared a detailed analysis report with recommendations across ISC teams; ISC has not yet responded.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">RCA 报告已提交——等待 ISC 回复。ISC 安全团队未出席 5月21日 的澄清会议。A+ 已向 ISC 各团队分享了含建议的详细分析报告，ISC 尚未回复。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">ISC</td>
+      <td><div style="margin-bottom:3px">ISC to review and respond to A+&#x27;s analysis report and recommendations. Follow-up meeting to be scheduled.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请 ISC 审阅并回复 A+ 的分析报告与建议，并安排后续会议。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-07</td>
+      <td><div style="font-weight:600;margin-bottom:3px">Alibaba Cloud Resource Costs Remain High. A+ analysis points to an excessively high login TPS target set for the QI TV sales campaign. A+ recommends reducing the TPS requirement to lower configuration needs and cost; ISC has not yet approved.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">阿里云资源成本居高不下。A+ 分析指出原因之一是 QI TV 营销活动设置的登录 TPS 目标过高。A+ 建议降低 TPS 需求以减少配置与云服务成本；ISC 尚未批准。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+ / ISC</td>
+      <td><div style="margin-bottom:3px">Awaiting ISC response and approval of A+&#x27;s cost-reduction recommendation.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">等待 ISC 回复并批准 A+ 的降本建议。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-08</td>
+      <td><div style="font-weight:600;margin-bottom:3px">LangShine Urgent Blind Box Mini App Request. LangShine raised an urgent request on May 21 for A+ to collaborate on Blind Box Mini App development.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">LangShine 盲盒小程序紧急需求。LangShine 于 5月21日 提出紧急需求，要求 A+ 协作开发盲盒小程序。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+ / LangShine</td>
+      <td><div style="margin-bottom:3px">A+ has asked LangShine to first contact Yasir to confirm requirements before A+ can proceed.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">A+ 已要求 LangShine 先联系 Yasir 确认需求，A+ 方可推进。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-09</td>
+      <td><div style="font-weight:600;margin-bottom:3px">Facial Authentication Decision Pending (~2 months). ISC Security has not decided on the facial-authentication method for visually impaired users. The feature (SPQI-313 / SPQI-2127) has been pending ISC confirmation for ~2 months and cannot be released until decided.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">人脸认证方案待定（约2个月）。ISC 安全团队尚未就视障用户的人脸认证方式作出决定。该功能（SPQI-313 / SPQI-2127）已等待 ISC 确认约 2个月，未决定前无法发布。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC</td>
+      <td><div style="margin-bottom:3px">ISC to confirm the facial-authentication approach for visually impaired users. Feature is blocked pending this decision.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请 ISC 确认视障用户的人脸认证方案。该功能在此决定前处于阻塞状态。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-10</td>
+      <td><div style="font-weight:600;margin-bottom:3px">RMS Mini App Onboarding Approach Undecided. ISC clients are unsatisfied with the current integration solution and are internally evaluating two options: one mini app per merchant vs. an Eatix aggregated mini app. A+ is exploring UX improvements in parallel.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">RMS 小程序接入方案未定。ISC 客户对当前集成方案不满意，正在内部评估两种方案：每商户一个小程序 vs. Eatix 聚合小程序。A+ 同步探索体验优化方案。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">ISC / A+</td>
+      <td><div style="margin-bottom:3px">Awaiting ISC internal decision on the integration approach. A+ to proceed once ISC confirms.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">等待 ISC 内部确定集成方案。ISC 确认后 A+ 即推进。</div></td>
+    </tr><tr>
+      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-11</td>
+      <td><div style="font-weight:600;margin-bottom:3px">Groupon Scope-Change Request During Review. BA-side requirements are resolved, but during Yasir&#x27;s review a new requirement to add Groupon capabilities was raised. A+ is re-reviewing the scope of changes.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">评审中提出 Groupon 范围变更。BA 侧需求已解决，但在 Yasir 评审过程中提出新增 Groupon 能力的需求。A+ 正在重新评估变更范围。</div></td>
+      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
+      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
+      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+</td>
+      <td><div style="margin-bottom:3px">A+ to deliver an updated scope assessment and response to ISC clients next week.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">A+ 将于下周向 ISC 客户提交更新后的范围评估与回复。</div></td>
+    </tr></tbody>
   </table>
 </div>
 
@@ -486,133 +447,202 @@ footer strong{color:#fff}
 <div class="page" id="page-timeline">
   <div class="sec-hd">
     <div class="sec-bar" style="background:var(--amber)"></div>
-    <div class="sec-ttl">Ticket Timeline · Team Roster, Status, Issues &amp; To-Do</div>
-    <div class="sec-pill" style="background:var(--amber-light);color:#7B4F00">4 Active Tickets</div>
+    <div class="sec-ttl">Ticket Timeline · Stakeholders, Milestones, Issues &amp; To-Do</div>
+    <div class="sec-pill" style="background:var(--amber-light);color:#7B4F00">16 Monitored Tickets</div>
     <div class="sec-line"></div>
   </div>
   <div class="tl-grid" id="timeline-grid">
 
-    <!-- TL CARD 1 -->
     <div class="tl-card">
       <div class="tl-head">
-        <span class="tl-id">SPQI-295</span>
-        <span class="tl-name">Mini-Program Aggregation Page Acceleration</span>
-        <span class="tl-sbadge ts-prog">🔵 In Progress</span>
+        <span class="tl-id">SPQI-312 · SPRQI-5122</span>
+        <span class="tl-name">Pay by Qi (SuperQi as a payment method) – Phase 2 (SDK)</span>
+        <span class="tl-sbadge ts-done">✅ Done</span>
       </div>
       <div class="tl-body">
-        <div class="tl-col">
-          <div class="tl-clbl">Team Members</div>
-          <div class="person-row"><div class="av av-bl">DP</div><div><div class="p-name">Danny Park</div><div class="p-role">PM · Owner</div></div></div>
-          <div class="person-row"><div class="av av-co">SD</div><div><div class="p-name">Sam Davies</div><div class="p-role">Senior Dev</div></div></div>
-          <div class="person-row"><div class="av av-tl">AL</div><div><div class="p-name">Alex Liu</div><div class="p-role">Backend Eng</div></div></div>
-          <div class="person-row"><div class="av av-pk">FL</div><div><div class="p-name">Flora Lam</div><div class="p-role">BA</div></div></div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:var(--red)">Current Issues</div>
-          <div class="issue-item">🔴 Tabao push dependency unresolved — ISC release blocked (RISK-001)</div>
-          <div class="issue-item">🔴 Network-level access optimisation blocked by config freeze until 25 May</div>
-          <div class="issue-item">🟡 6122 merchant page DZ impact assessment pending PD sign-off</div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:#7B4F00">To-Do</div>
-          <div class="todo-item">☐ Complete loading speed optimisation for aggregation page (Sam · 24 May)</div>
-          <div class="todo-item">☐ ISC push API stub integration test (Alex · 26 May)</div>
-          <div class="todo-item">☐ Raise scope change request if dependency not cleared by 26 May (Danny)</div>
-          <div class="todo-item">☐ Update BA analysis with new merchant data flow (Flora · 28 May)</div>
-        </div>
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-pu">KO</div><div><div class="p-name">Kola</div><div class="p-role">Solution Architect</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-gr">Ek</div><div><div class="p-name">Ekta</div><div class="p-role">ISC PM</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2025-10-13</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2025-10-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2025-11-19</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2025-11-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--red);text-align:right" style="font-weight:600">Pending – Mulesoft</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Production release blocked by Mulesoft deployment (R-03).</div><div class="todo-item">🟡 UAT completion date not recorded; ISA sign-off follow-up with ISC pending.</div><div class="todo-item">☐ Follow up third-party integration progress (SA: Kola).</div><div class="todo-item">☐ Push ISC to accelerate Mulesoft production release to unblock GA.</div></div>
       </div>
     </div>
-
-    <!-- TL CARD 2 -->
     <div class="tl-card">
       <div class="tl-head">
-        <span class="tl-id">SPQI-280</span>
-        <span class="tl-name">A+ Market Release — Feature Flag &amp; Sign-off</span>
-        <span class="tl-sbadge ts-rev">🟡 In Review</span>
+        <span class="tl-id">SPQI-316 · SPRQI-2040</span>
+        <span class="tl-name">Integration with User Behavior Analysis Tool</span>
+        <span class="tl-sbadge ts-prog">🔵 In UAT</span>
       </div>
       <div class="tl-body">
-        <div class="tl-col">
-          <div class="tl-clbl">Team Members</div>
-          <div class="person-row"><div class="av av-bl">DP</div><div><div class="p-name">Danny Park</div><div class="p-role">PM · Release Owner</div></div></div>
-          <div class="person-row"><div class="av av-pu">MK</div><div><div class="p-name">Mike Kwan</div><div class="p-role">Enterprise Architect</div></div></div>
-          <div class="person-row"><div class="av av-pk">FL</div><div><div class="p-name">Flora Lam</div><div class="p-role">BA · Documentation</div></div></div>
-          <div class="person-row"><div class="av av-am">JW</div><div><div class="p-name">Jane Wong</div><div class="p-role">QA Lead</div></div></div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:var(--red)">Current Issues</div>
-          <div class="issue-item">🔴 Scope fragmentation — multi-sprint changes not fully sequenced (RISK-005)</div>
-          <div class="issue-item">🟡 SPQI-293 doc update still in review — blocking final sign-off</div>
-          <div class="issue-item">🟡 Resource rotation plan pending confirmation from 2 external teams</div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:#7B4F00">To-Do</div>
-          <div class="todo-item">☐ Push PD team to finalise documentation improvements (Danny · 23 May)</div>
-          <div class="todo-item">☐ Confirm feature flag sequencing with Architecture (Mike · 25 May)</div>
-          <div class="todo-item">☐ Coordinate UAT sign-off with ISC BAs + Dubai team (Flora · 27 May)</div>
-          <div class="todo-item">☐ Regression test suite run on Market Release candidate (Jane · 28 May)</div>
-        </div>
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Li</div><div><div class="p-name">Lia</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">CD</div><div><div class="p-name">陈都</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">CX</div><div><div class="p-name">ChenXi</div><div class="p-role">UAT QA</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-02-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-22</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-22</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-19</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 DEV start logged as overdue; large effort item (&gt;200) under schedule pressure.</div><div class="todo-item">🟡 UAT in progress, awaiting completion ahead of Jun 1 release.</div><div class="todo-item">☐ Complete UAT and confirm completion date.</div><div class="todo-item">☐ Hold Jun 1 release / Jun 7 force-upgrade dates.</div></div>
       </div>
     </div>
-
-    <!-- TL CARD 3 -->
     <div class="tl-card">
       <div class="tl-head">
-        <span class="tl-id">SPQI-278</span>
-        <span class="tl-name">ACS Personnel Info Transparency — Compliance</span>
+        <span class="tl-id">SPQI-2127 · SPRQI-7836</span>
+        <span class="tl-name">Accessibility Improvements for Visually Impaired Users – Phase 2</span>
         <span class="tl-sbadge ts-blk">🔴 Blocked</span>
       </div>
       <div class="tl-body">
-        <div class="tl-col">
-          <div class="tl-clbl">Team Members</div>
-          <div class="person-row"><div class="av av-pu">MK</div><div><div class="p-name">Mike Kwan</div><div class="p-role">EA · Lead</div></div></div>
-          <div class="person-row"><div class="av av-pk">FL</div><div><div class="p-name">Flora Lam</div><div class="p-role">BA · Compliance</div></div></div>
-          <div class="person-row"><div class="av av-sl">LG</div><div><div class="p-name">Legal (TBC)</div><div class="p-role">Legal Reviewer</div></div></div>
-          <div class="person-row"><div class="av av-am">RH</div><div><div class="p-name">Rachel Hu</div><div class="p-role">Data Privacy Officer</div></div></div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:var(--red)">Current Issues</div>
-          <div class="issue-item">🔴 BLOCKED: Personnel data exposed to ISC without sign-off (RISK-002)</div>
-          <div class="issue-item">🔴 ISC BAs need transparency on assigned team — conflicts A+ policy</div>
-          <div class="issue-item">🟡 Data masking rule not yet deployed to UAT</div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:#7B4F00">To-Do</div>
-          <div class="todo-item">☐ Legal review meeting 24 May — confirm attendees (Flora)</div>
-          <div class="todo-item">☐ Deploy data masking rule to UAT and validate (Mike · 25 May)</div>
-          <div class="todo-item">☐ Draft interim communication to ISC BAs re: policy (Flora · 23 May)</div>
-          <div class="todo-item">☐ Obtain formal DPO sign-off before unblocking (Rachel · 26 May)</div>
-        </div>
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZC</div><div><div class="p-name">庄晨</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Fz</div><div><div class="p-name">Fazal / Nisha</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-03-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2026-04-29</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2026-05-11</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 BLOCKED: ISC facial-authentication decision pending ~2 months (R-09).</div><div class="issue-item">🔴 PRD sign-off pending @Yasir approval — no progress as of 05-06.</div><div class="todo-item">🟡 Depends on ISC security solution review.</div><div class="todo-item">☐ Escalate facial-auth decision to ISC Security.</div><div class="todo-item">☐ Obtain Yasir&#x27;s PRD approval to resume progress.</div></div>
       </div>
     </div>
-
-    <!-- TL CARD 4 -->
     <div class="tl-card">
       <div class="tl-head">
-        <span class="tl-id">SPQI-298</span>
-        <span class="tl-name">ISC Call Center — Top 8 Issues Resolution</span>
-        <span class="tl-sbadge ts-rev">🟡 In Review</span>
+        <span class="tl-id">SPQI-4573</span>
+        <span class="tl-name">Display Miles &amp; Smiles Card in SuperQi Cards Page (Mini App Button)</span>
+        <span class="tl-sbadge ts-prog">🔵 In Dev</span>
       </div>
       <div class="tl-body">
-        <div class="tl-col">
-          <div class="tl-clbl">Team Members</div>
-          <div class="person-row"><div class="av av-bl">DP</div><div><div class="p-name">Danny Park</div><div class="p-role">PM · Escalation Owner</div></div></div>
-          <div class="person-row"><div class="av av-tl">AL</div><div><div class="p-name">Alex Liu</div><div class="p-role">Backend Dev (Primary)</div></div></div>
-          <div class="person-row"><div class="av av-co">SD</div><div><div class="p-name">Sam Davies</div><div class="p-role">Dev (Support)</div></div></div>
-          <div class="person-row"><div class="av av-gr">CC</div><div><div class="p-name">Carol Chen</div><div class="p-role">ISC Operations Lead</div></div></div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:var(--red)">Current Issues</div>
-          <div class="issue-item">🟡 Issues #3 and #6 require Tabao escalation — ISC Tech Lead pending</div>
-          <div class="issue-item">🟡 App loading speed root cause partial — full fix needs next sprint</div>
-          <div class="issue-item">🟢 Issues #1,2,4,5 resolved and in review with ISC Operations</div>
-        </div>
-        <div class="tl-col">
-          <div class="tl-clbl" style="color:#7B4F00">To-Do</div>
-          <div class="todo-item">☐ ISC sign-off on resolved issues #1,2,4,5 (Carol · 24 May)</div>
-          <div class="todo-item">☐ Escalate issues #3 &amp; #6 via ISC Tech channel (Danny · 23 May)</div>
-          <div class="todo-item">☐ Plan loading speed fix Phase 2 for Sprint 4C (Alex · 28 May)</div>
-          <div class="todo-item">☐ Publish resolution report to ISC Call Centre (Carol · 30 May)</div>
-        </div>
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Li</div><div><div class="p-name">Lia</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">QS</div><div><div class="p-name">邱少荣</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Re</div><div><div class="p-name">Reggie</div><div class="p-role">Solution Architect</div></div></div><div class="person-row"><div class="av av-gr">Ek</div><div><div class="p-name">Ekta</div><div class="p-role">ISC PM</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-03-17</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-17</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-09</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-11 → 05-12</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 DEV start logged as overdue.</div><div class="todo-item">🟡 UAT window very short (1 day) — risk if defects found.</div><div class="todo-item">☐ Complete development and enter UAT on schedule.</div><div class="todo-item">☐ Confirm release sprint with ISC PM (Ekta).</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-4779</span>
+        <span class="tl-name">Remove all name validation rules to support all characters</span>
+        <span class="tl-sbadge ts-blk">🔴 UAT Delayed</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Li</div><div><div class="p-name">Lia</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZY</div><div><div class="p-name">张月红</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">TS</div><div><div class="p-name">Tian ShanShan</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Re</div><div><div class="p-name">Reggie</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-04-09</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Not signed</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-19</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Unknown</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 UAT delayed: client requested immediate UAT on 05-20; as of 05-25 only ~50% complete. Client swapped QA; ~2-day slip expected.</div><div class="todo-item">🟡 PRD not signed off; ISA sign-off missing. Status logged &#x27;on hold&#x27; (05-06).</div><div class="todo-item">☐ Drive client to complete remaining UAT; confirm new QA onboarding.</div><div class="todo-item">☐ Chase PRD sign-off and ISA sign-off from ISC.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-4836</span>
+        <span class="tl-name">A+ International Network – Settlement</span>
+        <span class="tl-sbadge ts-prog">🔵 In UAT</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">HP</div><div><div class="p-name">胡鹏</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-01-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-02-04</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-17</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Part of A+ Int. Network scope affected by pen-test / UAT sign-off delays (R-01, R-02, R-04).</div><div class="todo-item">🟡 DEV start overdue; UAT completion not recorded.</div><div class="todo-item">☐ Complete UAT and record completion date.</div><div class="todo-item">☐ Track network-onboarding contract &amp; pen-test reschedule (R-04).</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-1782 · SPRQI-6274</span>
+        <span class="tl-name">Enable Secure View Card Details</span>
+        <span class="tl-sbadge ts-prog">🔵 In UAT</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Yi</div><div><div class="p-name">Yinan</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">WM</div><div><div class="p-name">文梦婷</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">TS</div><div><div class="p-name">Tian ShanShan</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Re</div><div><div class="p-name">Reggie</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-04-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-23</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-19</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Technical enhancement processed directly by SA; ISA signed-off then in dev.</div><div class="todo-item">🟡 ISA sign-off date not recorded; DEV start overdue.</div><div class="todo-item">☐ Complete UAT and confirm ISA sign-off record.</div><div class="todo-item">☐ Confirm release sprint.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-4578</span>
+        <span class="tl-name">Deeplink for mini app specific page cannot be opened</span>
+        <span class="tl-sbadge ts-prog">🔵 Solution Design</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Yi</div><div><div class="p-name">Yinan</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZW</div><div><div class="p-name">赵五一</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">LY</div><div><div class="p-name">Li Yuxuan</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">KO</div><div><div class="p-name">Kola</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-03-11</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Not signed</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-16</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Fell back to re-review the solution (04-01); PRD not signed off.</div><div class="todo-item">🟡 ISA sign-off pending; UAT not yet scheduled.</div><div class="todo-item">☐ Finalize solution design and obtain PRD sign-off.</div><div class="todo-item">☐ Confirm ISA sign-off, then schedule UAT.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-307 · SPRQI-6208</span>
+        <span class="tl-name">Display International Velocity Limits (Remaining Amounts)</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Yi</div><div><div class="p-name">Yinan</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">LY</div><div><div class="p-name">梁艳杰</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">CX</div><div><div class="p-name">ChenXi</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Ah</div><div><div class="p-name">Ahmed</div><div class="p-role">Solution Architect</div></div></div><div class="person-row"><div class="av av-gr">Ek</div><div><div class="p-name">Ekta</div><div class="p-role">ISC PM</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-01-06</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-01-26</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-01-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-03-12 → 03-16</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-04-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-04-13</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-04-22</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Production blocked by Mulesoft deployment (R-03).</div><div class="todo-item">🟡 Status &#x27;Pending&#x27; — on-hold; AlipayCN does not have this feature (03-12). Awaiting ISC UAT verification.</div><div class="todo-item">☐ Follow up UAT verification with ISC (SA: Kola).</div><div class="todo-item">☐ Unblock Mulesoft release dependency.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-313 · SPRQI-3715</span>
+        <span class="tl-name">Accessibility Improvements for Visually Impaired Users – Phase 1</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZC</div><div><div class="p-name">庄晨</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Ah</div><div><div class="p-name">Ahmed</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2025-11-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-02-02</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2026-02-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2026-02-25</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-03-01</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-02-11</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Release gated by ISC facial-authentication decision (R-09), pending ~2 months.</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-03-01.</div><div class="todo-item">☐ Obtain ISC facial-auth decision to enable release.</div><div class="todo-item">☐ Confirm final release/force-upgrade dates.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-1239</span>
+        <span class="tl-name">Connect to Alipay+ CsB – Phase 1</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">FY</div><div><div class="p-name">樊亚宁</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Fz</div><div><div class="p-name">Fazal</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-01-15</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-02-04</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-02-06</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-27 → 04-30</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Part of A+ Int. Network — may be affected by 5B pen-test / sign-off delays (R-01, R-02).</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-08; release scheduled 05-20.</div><div class="todo-item">☐ Confirm 05-20 release holds against pen-test reschedule.</div><div class="todo-item">☐ Coordinate Jun 7 app force-upgrade.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-1238</span>
+        <span class="tl-name">A+ Int. Network – BSC QR Code, Business to Customer</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">FY</div><div><div class="p-name">樊亚宁</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Fz</div><div><div class="p-name">Fazal</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-03-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-27 → 04-30</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-07</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Network onboarding contract unsigned; commercial fund &amp; settlement solution to finalize (R-04).</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-07; release scheduled 05-20.</div><div class="todo-item">☐ Track contract signing &amp; pen-test reschedule (R-04).</div><div class="todo-item">☐ Confirm 05-20 release and force-upgrade.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-4637</span>
+        <span class="tl-name">Groupon homepage: selected time period not preserved</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Da</div><div><div class="p-name">Danny</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">HW</div><div><div class="p-name">黄炜雄</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-07</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-28 → 04-29</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-05</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 DEV start logged overdue; otherwise on track.</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-05; release scheduled 06-01.</div><div class="todo-item">☐ Hold Jun 1 release date.</div><div class="todo-item">☐ Confirm regression scope with QA.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-5313</span>
+        <span class="tl-name">Groupon Approval Whitelist</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">AL</div><div><div class="p-name">A+ PD (TBC)</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2026-04-28</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2026-04-29</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-11</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Potential scope change: new Groupon capability requested during Yasir review (R-11).</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-11.</div><div class="todo-item">☐ Deliver updated scope assessment to ISC (R-11).</div><div class="todo-item">☐ Hold Jun 1 release.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-5471</span>
+        <span class="tl-name">Update the Benefits Category section of World Elite</span>
+        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">AL</div><div><div class="p-name">A+ PD (TBC)</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-08 → 05-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-08; release scheduled 05-20.</div><div class="todo-item">🟡 App force-upgrade date not recorded.</div><div class="todo-item">☐ Confirm app force-upgrade date.</div><div class="todo-item">☐ Confirm 05-20 release holds.</div></div>
+      </div>
+    </div>
+    <div class="tl-card">
+      <div class="tl-head">
+        <span class="tl-id">SPQI-4719</span>
+        <span class="tl-name">New Scope For MiniApps &quot;account_list&quot;</span>
+        <span class="tl-sbadge ts-done">✅ Done</span>
+      </div>
+      <div class="tl-body">
+        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-co">XP</div><div><div class="p-name">徐鹏博</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">CX</div><div><div class="p-name">ChenXi</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">KO</div><div><div class="p-name">Kola</div><div class="p-role">Solution Architect</div></div></div></div>
+        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-13</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-14</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-27 → 04-28</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-06</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-07</span></div></div>
+        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 On track throughout; PRD signed off 04-08; UAT plan met.</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 Released 2026-05-07.</div><div class="todo-item">☐ Post-release monitoring; no open actions.</div></div>
       </div>
     </div>
 
@@ -621,7 +651,7 @@ footer strong{color:#fff}
 
 <footer>
   <span>Copyright <strong>2026</strong> Ant Group – Strictly Confidential</span>
-  <span>SuperQi Project Dashboard · v2.0 · <span id="footer-date"></span></span>
+  <span>SuperQi Project Dashboard · v3.0 · <span id="footer-date"></span></span>
 </footer>
 
 <script>
