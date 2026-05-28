@@ -1,924 +1,2210 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SuperQi Project Dashboard</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231677FF'/><text x='16' y='22' font-size='18' text-anchor='middle' font-family='Arial' fill='%23FAB900'>🐜</text></svg>">
 <style>
-:root {
-  --blue:#1677FF; --blue-dark:#0958D9; --blue-light:#EBF4FF; --blue-mid:#4472C4;
-  --amber:#FAB900; --amber-light:#FFF8E0;
-  --red:#C0392B; --red-light:#FFF0EE;
-  --green:#70AD47; --green-light:#F0FAE8;
-  --orange:#FFC000; --orange-light:#FFF9E6;
-  --dark:#3D3A3A; --muted:#6B7280;
-  --border:#E5E9F0; --bg:#F4F7FB; --white:#FFFFFF; --row-alt:#F0F5FF;
-  --nav-h:56px; --tab-h:44px; --total-top:100px;
+:root{
+  --blue:#1677FF;--blue-dark:#0958D9;--blue-light:#EBF4FF;--blue-mid:#4472C4;
+  --amber:#FAB900;--amber-light:#FFF8E0;
+  --red:#C0392B;--red-light:#FFF0EE;
+  --green:#70AD47;--green-light:#F0FAE8;
+  --orange:#FFC000;--orange-light:#FFF9E6;
+  --purple:#7C3AED;--teal:#0D9488;--coral:#DC4E2D;--pink:#BE185D;--slate:#475569;
+  --dark:#3D3A3A;--muted:#6B7280;
+  --border:#E5E9F0;--bg:#F4F7FB;--white:#FFFFFF;--row-alt:#F0F5FF;
+  --nav-h:56px;--tab-h:44px;--total-top:100px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Arial','Helvetica',sans-serif;background:var(--bg);color:var(--dark);font-size:13px;min-height:100vh}
-
-/* ══ STICKY TOP NAV ══ */
-#top-nav{
-  position:fixed;top:0;left:0;right:0;z-index:1000;
-  background:var(--blue);height:var(--nav-h);
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 24px;
-  box-shadow:0 2px 12px rgba(22,119,255,.3);
-}
+#login-screen{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0958D9 0%,#1677FF 50%,#0D9488 100%);display:flex;align-items:center;justify-content:center;}
+.login-box{background:#fff;border-radius:16px;padding:40px 44px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,.25);text-align:center;}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:6px}
+.login-q{width:44px;height:44px;background:var(--amber);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff}
+.login-brand{text-align:left}.login-brand h1{font-size:18px;font-weight:700;color:var(--dark)}.login-brand p{font-size:11px;color:var(--muted);margin-top:2px}
+.login-divider{height:1px;background:var(--border);margin:20px 0}
+.login-field{margin-bottom:14px;text-align:left}
+.login-field label{font-size:11px;font-weight:600;color:var(--muted);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.login-field input{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;color:var(--dark);outline:none;transition:.15s;}
+.login-field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,119,255,.12)}
+.login-btn{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:.15s;margin-top:6px;}
+.login-btn:hover{background:var(--blue-dark)}
+.login-err{font-size:11px;color:var(--red);margin-top:10px;display:none}
+.login-footer{font-size:10px;color:var(--muted);margin-top:20px}
+#app{display:none}#app.show{display:block}
+#top-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:var(--blue);height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 24px;box-shadow:0 2px 12px rgba(22,119,255,.3);}
 .nav-left{display:flex;align-items:center;gap:12px}
-.q-badge{
-  width:32px;height:32px;background:var(--amber);border-radius:7px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:17px;font-weight:900;color:#fff;flex-shrink:0;
-  letter-spacing:-1px;
-}
+.q-badge{width:32px;height:32px;background:var(--amber);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;color:#fff;flex-shrink:0}
 .nav-brand{display:flex;flex-direction:column}
 .nav-title{font-size:15px;font-weight:700;color:#fff;letter-spacing:.2px}
 .nav-sub{font-size:10px;color:rgba(255,255,255,.70);margin-top:1px}
-
-/* ══ UPDATE BUTTON ══ */
-#btn-update{
-  display:flex;align-items:center;gap:7px;
-  background:var(--amber);color:#3D2800;
-  border:none;border-radius:7px;
-  padding:7px 14px;font-size:12px;font-weight:700;
-  cursor:pointer;transition:all .15s;white-space:nowrap;
-}
-#btn-update:hover{background:#FFD133;transform:translateY(-1px);box-shadow:0 3px 10px rgba(250,185,0,.4)}
-#btn-update:active{transform:none}
-#btn-update svg{width:14px;height:14px;flex-shrink:0}
-
-/* ══ TABS BAR ══ */
-#tabs-bar{
-  position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;
-  background:var(--white);border-bottom:2px solid var(--border);
-  display:flex;padding:0 24px;height:var(--tab-h);align-items:flex-end;
-}
-.tab-item{
-  padding:10px 18px;font-size:12px;font-weight:600;color:var(--muted);
-  cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;
-  transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;
-}
+.nav-right{display:flex;align-items:center;gap:10px}
+#btn-logout{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:7px;padding:6px 12px;font-size:11px;font-weight:600;cursor:pointer;transition:.15s;}
+#btn-logout:hover{background:rgba(255,255,255,.25)}
+#tabs-bar{position:fixed;top:var(--nav-h);left:0;right:0;z-index:999;background:var(--white);border-bottom:2px solid var(--border);display:flex;padding:0 24px;height:var(--tab-h);align-items:flex-end;}
+.tab-item{padding:10px 16px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:5px;}
 .tab-item.active{color:var(--blue);border-bottom-color:var(--blue)}
 .tab-item:hover:not(.active){color:var(--dark)}
-.tab-item .tab-icon{font-size:14px}
-
-/* ══ PAGES ══ */
 .page{display:none;padding:calc(var(--total-top) + 20px) 24px 40px;max-width:1600px;margin:0 auto}
 .page.active{display:block}
-
-/* ══ SUMMARY STRIP ══ */
 .summary-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
-.sum-card{
-  background:var(--white);border:1px solid var(--border);border-radius:8px;
-  padding:12px 14px;display:flex;flex-direction:column;gap:3px;
-}
+.sum-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
 .sum-card .lbl{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
 .sum-card .val{font-size:24px;font-weight:700;color:var(--dark);line-height:1.1}
 .sum-card .hint{font-size:9px;color:var(--muted);margin-top:2px}
-.sum-card.bl{border-left:3px solid var(--blue)}
-.sum-card.gr{border-left:3px solid var(--green)}
-.sum-card.am{border-left:3px solid var(--orange)}
-.sum-card.re{border-left:3px solid var(--red)}
-
-/* ══ SECTION HEADERS ══ */
+.sum-card.bl{border-left:3px solid var(--blue)}.sum-card.gr{border-left:3px solid var(--green)}.sum-card.am{border-left:3px solid var(--orange)}.sum-card.re{border-left:3px solid var(--red)}
 .sec-hd{display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .sec-bar{width:4px;height:16px;border-radius:2px;flex-shrink:0}
 .sec-ttl{font-size:13px;font-weight:700}
-.sec-pill{
-  font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;
-  background:var(--blue-light);color:var(--blue);
-}
+.sec-pill{font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--blue-light);color:var(--blue)}
 .sec-line{flex:1;height:1px;background:var(--border)}
-
-/* ══ KANBAN ══ */
 .kanban{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-.kb-col{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;min-height:200px}
+.kb-col{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;min-height:180px}
 .kb-head{padding:8px 10px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.kb-head .cname{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
-.kb-head .ccnt{font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px}
-.col-bl .kb-head{background:#EBF4FF} .col-bl .cname{color:var(--blue)} .col-bl .ccnt{background:var(--blue);color:#fff}
-.col-og .kb-head{background:#FFF9E6} .col-og .cname{color:#8A5A00} .col-og .ccnt{background:var(--orange);color:#3D2800}
-.col-pu .kb-head{background:#F0EEFF} .col-pu .cname{color:#4338CA} .col-pu .ccnt{background:#4338CA;color:#fff}
-.col-gr .kb-head{background:#F0FAE8} .col-gr .cname{color:#2D6A11} .col-gr .ccnt{background:var(--green);color:#fff}
-.col-gy .kb-head{background:#F9FAFB} .col-gy .cname{color:#6B7280} .col-gy .ccnt{background:#D1D5DB;color:#374151}
+.kb-head .cname{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;line-height:1.3}
+.kb-head .ccnt{font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;flex-shrink:0}
+.col-backlog .kb-head{background:#F9FAFB}.col-backlog .cname{color:#6B7280}.col-backlog .ccnt{background:#D1D5DB;color:#374151}
+.col-req .kb-head{background:#EEF2FF}.col-req .cname{color:#4338CA}.col-req .ccnt{background:#4338CA;color:#fff}
+.col-dev .kb-head{background:var(--blue-light)}.col-dev .cname{color:var(--blue)}.col-dev .ccnt{background:var(--blue);color:#fff}
+.col-rel .kb-head{background:var(--orange-light)}.col-rel .cname{color:#8A5A00}.col-rel .ccnt{background:var(--orange);color:#3D2800}
+.col-done .kb-head{background:var(--green-light)}.col-done .cname{color:#2D6A11}.col-done .ccnt{background:var(--green);color:#fff}
+.col-backlog .kb-card{border-left:3px solid #9CA3AF}.col-req .kb-card{border-left:3px solid #4338CA}.col-dev .kb-card{border-left:3px solid var(--blue)}.col-rel .kb-card{border-left:3px solid var(--orange)}.col-done .kb-card{border-left:3px solid var(--green);opacity:.78}
 .kb-cards{padding:7px;display:flex;flex-direction:column;gap:6px}
-.kb-card{
-  background:var(--white);border:1px solid var(--border);border-radius:6px;
-  padding:8px 9px;cursor:pointer;transition:.15s;
-}
+.kb-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:8px 9px;cursor:pointer;transition:.15s}
 .kb-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.09);border-color:#C9D8F0}
-.col-bl .kb-card{border-left:3px solid var(--blue)}
-.col-og .kb-card{border-left:3px solid var(--orange)}
-.col-pu .kb-card{border-left:3px solid #4338CA}
-.col-gr .kb-card{border-left:3px solid var(--green)}
-.col-gy .kb-card{border-left:3px solid #9CA3AF;opacity:.75}
 .kc-id{font-size:9px;font-weight:700;color:var(--blue);font-family:'Courier New',monospace;margin-bottom:3px}
 .kc-title{font-size:11px;font-weight:600;color:var(--dark);line-height:1.35;margin-bottom:6px}
-.kc-meta{display:flex;align-items:center;gap:4px}
+.kc-meta{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
 .kc-tag{font-size:9px;padding:1px 5px;border-radius:3px;background:var(--blue-light);color:var(--blue-mid);font-weight:500}
 .kc-pri{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;text-transform:uppercase;letter-spacing:.3px}
-.p-h{background:#FFE4E1;color:#8B0000} .p-m{background:#FFF3CD;color:#7B4F00} .p-l{background:#D4EDDA;color:#155724}
+.p-h{background:#FFE4E1;color:#8B0000}.p-m{background:#FFF3CD;color:#7B4F00}.p-l{background:#D4EDDA;color:#155724}
 .kc-av{width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;font-size:7px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:auto}
-
-/* ══ RISK TABLE ══ */
+.kc-phase{font-size:8px;color:var(--muted);margin-bottom:3px;font-style:italic}
 .risk-tbl{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;border:1px solid var(--border)}
 .risk-tbl thead tr{background:var(--blue)}
 .risk-tbl thead th{padding:9px 11px;text-align:left;font-size:10px;font-weight:700;color:#fff;white-space:nowrap}
-.risk-tbl tbody tr{background:var(--white)}
-.risk-tbl tbody tr:nth-child(even){background:var(--row-alt)}
-.risk-tbl tbody tr:hover{background:#D9E8FF}
+.risk-tbl tbody tr{background:var(--white)}.risk-tbl tbody tr:nth-child(even){background:var(--row-alt)}.risk-tbl tbody tr:hover{background:#D9E8FF}
 .risk-tbl tbody td{padding:8px 11px;font-size:11px;color:var(--dark);border-bottom:1px solid var(--border);vertical-align:middle}
 .rag{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:4px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
 .rag-dot{width:5px;height:5px;border-radius:50%}
-.rag-r{background:#FFF0EE;color:var(--red)} .rag-r .rag-dot{background:var(--red)}
-.rag-a{background:#FFF9E6;color:#8A5A00} .rag-a .rag-dot{background:var(--orange)}
-.rag-g{background:var(--green-light);color:#2D6A11} .rag-g .rag-dot{background:var(--green)}
+.rag-r{background:#FFF0EE;color:var(--red)}.rag-r .rag-dot{background:var(--red)}
+.rag-a{background:#FFF9E6;color:#8A5A00}.rag-a .rag-dot{background:var(--orange)}
+.rag-g{background:var(--green-light);color:#2D6A11}.rag-g .rag-dot{background:var(--green)}
 .imp{display:inline-block;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:600}
-.imp-h{background:#FFE4E1;color:#8B0000} .imp-m{background:#FFF3CD;color:#7B4F00} .imp-l{background:#D4EDDA;color:#155724}
-
-/* ══ TIMELINE ══ */
-.tl-grid{display:flex;flex-direction:column;gap:14px}
+.imp-h{background:#FFE4E1;color:#8B0000}.imp-m{background:#FFF3CD;color:#7B4F00}.imp-l{background:#D4EDDA;color:#155724}
+.bilingual{display:flex;flex-direction:column;gap:1px}
+.bi-en{font-size:11px;font-weight:600;color:var(--dark)}.bi-cn{font-size:10px;color:var(--muted)}
+.tl-grid{display:flex;flex-direction:column;gap:16px}
 .tl-card{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden}
 .tl-head{background:var(--blue);padding:9px 16px;display:flex;align-items:center;gap:10px}
 .tl-id{font-size:10px;font-weight:700;color:rgba(255,255,255,.75);font-family:'Courier New',monospace}
 .tl-name{font-size:12px;font-weight:700;color:#fff;flex:1}
 .tl-sbadge{font-size:9px;font-weight:700;padding:3px 9px;border-radius:4px;white-space:nowrap}
-.ts-prog{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4)}
-.ts-rev{background:var(--amber);color:#3D2800}
-.ts-done{background:var(--green);color:#fff}
-.ts-blk{background:var(--red);color:#fff}
-.tl-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
-.tl-col{padding:11px 14px;border-right:1px solid var(--border)}
-.tl-col:last-child{border-right:none}
+.ts-prog{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.4)}.ts-rev{background:var(--amber);color:#3D2800}.ts-done{background:var(--green);color:#fff}.ts-blk{background:var(--red);color:#fff}
+.tl-milestone-row{padding:10px 16px;background:#FAFBFF;border-bottom:1px solid var(--border);overflow-x:auto}
+.milestone-track{display:flex;align-items:center;gap:0;min-width:max-content}
+.ms-item{display:flex;flex-direction:column;align-items:center;min-width:80px}
+.ms-dot{width:10px;height:10px;border-radius:50%;border:2px solid #ccc;background:#fff;position:relative;z-index:1}
+.ms-dot.done{background:var(--green);border-color:var(--green)}.ms-dot.active{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,119,255,.2)}.ms-dot.late{background:var(--red);border-color:var(--red)}.ms-dot.pending{background:#fff;border-color:#D1D5DB}
+.ms-line{flex:1;height:2px;background:#E5E9F0;min-width:20px}.ms-line.done{background:var(--green)}
+.ms-name{font-size:8px;color:var(--muted);margin-top:4px;text-align:center;font-weight:500;white-space:nowrap}
+.ms-date{font-size:8px;color:var(--blue);font-weight:600;white-space:nowrap}
+.ms-wrap{display:flex;align-items:center}
+.tl-body{display:grid;grid-template-columns:180px 1fr 1fr 1fr;gap:0}
+.tl-col{padding:11px 13px;border-right:1px solid var(--border)}.tl-col:last-child{border-right:none}
 .tl-clbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--blue);margin-bottom:9px;display:flex;align-items:center;gap:5px}
 .tl-clbl::after{content:'';flex:1;height:1px;background:var(--blue-light)}
-.person-row{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.person-row{display:flex;align-items:flex-start;gap:7px;margin-bottom:7px}
 .av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;flex-shrink:0}
-.av-bl{background:var(--blue)} .av-tl{background:#0D9488} .av-pu{background:#7C3AED}
-.av-co{background:#DC4E2D} .av-gr{background:var(--green)} .av-am{background:#D97706}
-.av-pk{background:#BE185D} .av-sl{background:#475569}
-.p-name{font-size:11px;font-weight:600;color:var(--dark)}
-.p-role{font-size:9px;color:var(--muted);margin-top:1px}
+.av-bl{background:var(--blue)}.av-tl{background:var(--teal)}.av-pu{background:var(--purple)}.av-co{background:var(--coral)}.av-gr{background:var(--green)}.av-am{background:#D97706}.av-pk{background:var(--pink)}.av-sl{background:var(--slate)}
+.p-name{font-size:11px;font-weight:600;color:var(--dark)}.p-role{font-size:9px;color:var(--muted);margin-top:1px}
+.p-org{font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px;display:inline-block;margin-top:2px}
+.org-ap{background:var(--blue-light);color:var(--blue)}.org-isc{background:#EEF2FF;color:#4338CA}
 .issue-item{background:#FFF0EE;border-left:3px solid var(--red);border-radius:0 4px 4px 0;padding:5px 7px;font-size:10px;color:#7B1A1A;line-height:1.4;margin-bottom:4px}
 .todo-item{background:var(--amber-light);border-left:3px solid var(--orange);border-radius:0 4px 4px 0;padding:5px 7px;font-size:10px;color:#6B4A00;line-height:1.4;margin-bottom:4px;display:flex;gap:5px}
-
-/* ══ LOADING OVERLAY ══ */
-#loader{
-  display:none;position:fixed;inset:0;z-index:2000;
-  background:rgba(22,119,255,.08);backdrop-filter:blur(2px);
-  align-items:center;justify-content:center;flex-direction:column;gap:16px;
-}
-#loader.show{display:flex}
-.loader-box{
-  background:#fff;border-radius:14px;padding:32px 40px;
-  border:1px solid var(--border);text-align:center;
-  box-shadow:0 8px 32px rgba(22,119,255,.15);min-width:320px;
-}
-.loader-ant{font-size:40px;animation:ant-walk 1s infinite linear}
-@keyframes ant-walk{0%{transform:translateX(-6px) rotate(-5deg)}50%{transform:translateX(6px) rotate(5deg)}100%{transform:translateX(-6px) rotate(-5deg)}}
-.loader-ttl{font-size:15px;font-weight:700;color:var(--blue);margin-top:10px}
-.loader-sub{font-size:11px;color:var(--muted);margin-top:4px}
-.loader-bar{width:100%;height:4px;background:var(--blue-light);border-radius:2px;margin-top:16px;overflow:hidden}
-.loader-fill{height:100%;background:var(--blue);border-radius:2px;animation:fill-bar 2.5s infinite ease-in-out}
-@keyframes fill-bar{0%{width:5%}60%{width:80%}100%{width:95%}}
-
-/* ══ ERROR BANNER ══ */
-#err-banner{
-  display:none;position:fixed;top:calc(var(--total-top) + 10px);left:50%;transform:translateX(-50%);
-  z-index:1500;background:#FFF0EE;border:1px solid var(--red);border-radius:8px;
-  padding:10px 18px;font-size:12px;color:var(--red);font-weight:600;
-  box-shadow:0 4px 16px rgba(192,57,43,.2);max-width:600px;text-align:center;
-}
-#err-banner.show{display:block}
-
-/* ══ FILE INPUT PANEL ══ */
-#file-panel{
-  display:none;position:fixed;top:calc(var(--nav-h) + 8px);right:24px;z-index:1200;
-  background:#fff;border-radius:12px;border:1px solid var(--border);
-  box-shadow:0 8px 32px rgba(22,119,255,.18);padding:20px;width:380px;
-}
-#file-panel.show{display:block}
-.fp-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px;display:flex;align-items:center;gap:7px}
-.fp-sub{font-size:10px;color:var(--muted);margin-bottom:16px;line-height:1.5}
-.fp-row{margin-bottom:12px}
-.fp-lbl{font-size:10px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.fp-drop{
-  border:2px dashed var(--border);border-radius:7px;padding:14px;text-align:center;
-  cursor:pointer;transition:.15s;background:var(--bg);
-}
-.fp-drop:hover{border-color:var(--blue);background:var(--blue-light)}
-.fp-drop input{display:none}
-.fp-drop .dp-icon{font-size:22px;margin-bottom:4px}
-.fp-drop .dp-txt{font-size:11px;color:var(--muted)}
-.fp-drop .dp-fn{font-size:11px;font-weight:600;color:var(--green);margin-top:3px}
-.fp-actions{display:flex;gap:8px;margin-top:16px}
-.fp-btn{
-  flex:1;padding:9px;border-radius:7px;border:none;font-size:12px;font-weight:700;
-  cursor:pointer;transition:.15s;
-}
-.fp-btn.primary{background:var(--blue);color:#fff}
-.fp-btn.primary:hover{background:var(--blue-dark)}
-.fp-btn.secondary{background:var(--bg);color:var(--dark);border:1px solid var(--border)}
-.fp-btn.secondary:hover{background:var(--border)}
-
-/* ══ FOOTER ══ */
-footer{background:var(--blue);color:rgba(255,255,255,.80);font-size:10px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center;margin-top:40px}
+.blocker-item{background:#FFF0EE;border-left:3px solid var(--red);border-radius:0 4px 4px 0;padding:5px 7px;font-size:10px;color:#8B0000;line-height:1.4;margin-bottom:4px;font-weight:600}
+.risk-item{background:#FFF9E6;border-left:3px solid var(--orange);border-radius:0 4px 4px 0;padding:5px 7px;font-size:10px;color:#7B4F00;line-height:1.4;margin-bottom:4px}
+.todo-page-grid{display:flex;flex-direction:column;gap:10px}
+.todo-group{background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.todo-group-head{padding:10px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.tg-party{font-size:12px;font-weight:700;color:#fff}
+.tg-cnt{background:rgba(255,255,255,.25);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px}
+.todo-items-list{padding:10px 16px 12px}
+.td-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.td-item:last-child{border-bottom:none}
+.td-check{width:16px;height:16px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+.td-check.done{background:var(--green);border-color:var(--green)}.td-check.done::after{content:'\2713';color:#fff;font-size:9px;font-weight:700}
+.td-content{flex:1}
+.td-en{font-size:12px;font-weight:600;color:var(--dark);line-height:1.4}
+.td-cn{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
+.td-meta{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap}
+.td-owner{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;background:var(--blue-light);color:var(--blue)}
+.td-deadline{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+.dl-hot{background:#FFE4E1;color:var(--red)}.dl-warn{background:#FFF3CD;color:#7B4F00}.dl-ok{background:var(--green-light);color:#2D6A11}
+.td-tag{font-size:9px;padding:1px 6px;border-radius:3px;background:#F3F4F6;color:#6B7280;font-weight:500}
+footer{background:var(--blue);color:rgba(255,255,255,.80);font-size:10px;padding:9px 24px;display:flex;justify-content:space-between;align-items:center}
 footer strong{color:#fff}
 </style>
 </head>
 <body>
 
-<!-- ════ STICKY TOP NAV ════ -->
-<nav id="top-nav">
-  <div class="nav-left">
-    <div class="q-badge">Q</div>
-    <div class="nav-brand">
-      <div class="nav-title">SuperQi Project Dashboard</div>
-      <div class="nav-sub">A+ · Ant International · Real-time Project Status</div>
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-q">&#x1F41C;</div>
+      <div class="login-brand"><h1>SuperQi Dashboard</h1><p>A+ &middot; Ant International</p></div>
     </div>
-  </div>
-  <button id="btn-update" onclick="openFilePanel()">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M8 1v10M4 7l4 4 4-4M2 13h12" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    Update Dashboard
-  </button>
-</nav>
-
-<!-- ════ TABS BAR ════ -->
-<div id="tabs-bar">
-  <div class="tab-item active" onclick="switchTab('kanban')" id="tab-kanban">
-    <span class="tab-icon">📋</span> Kanban Board
-  </div>
-  <div class="tab-item" onclick="switchTab('risk')" id="tab-risk">
-    <span class="tab-icon">⚠️</span> Risk Register
-  </div>
-  <div class="tab-item" onclick="switchTab('timeline')" id="tab-timeline">
-    <span class="tab-icon">📅</span> Ticket Timeline &amp; Issues
+    <div class="login-divider"></div>
+    <div class="login-field">
+      <label>Username &#x7528;&#x6237;&#x540D;</label>
+      <input type="text" id="login-user" placeholder="Enter username" autocomplete="username">
+    </div>
+    <div class="login-field">
+      <label>Password &#x5BC6;&#x7801;</label>
+      <input type="password" id="login-pass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">&#x1F41C; Sign In</button>
+    <div class="login-err" id="login-err">Incorrect username or password. / &#x7528;&#x6237;&#x540D;&#x6216;&#x5BC6;&#x7801;&#x9519;&#x8BEF;&#x3002;</div>
+    <div class="login-footer">SuperQi Project Dashboard v3.0 &middot; Strictly Confidential</div>
   </div>
 </div>
 
-<!-- ════ LOADER ════ -->
-<div id="loader">
-  <div class="loader-box">
-    <div class="loader-ant">🐜</div>
-    <div class="loader-ttl">Generating Dashboard...</div>
-    <div class="loader-sub" id="loader-msg">Reading files and calling Claude AI...</div>
-    <div class="loader-bar"><div class="loader-fill"></div></div>
+<div id="app">
+  <nav id="top-nav">
+    <div class="nav-left">
+      <div class="q-badge">&#x1F41C;</div>
+      <div class="nav-brand">
+        <div class="nav-title">SuperQi Project Dashboard</div>
+        <div class="nav-sub">A+ &middot; Ant International &middot; Real-time Project Status</div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button id="btn-logout" onclick="doLogout()">&#x23CF; Sign Out</button>
+    </div>
+  </nav>
+
+  <div id="tabs-bar">
+    <div class="tab-item active" id="tab-kanban" onclick="switchTab('kanban')">&#x1F4CB; Kanban Board</div>
+    <div class="tab-item" id="tab-risk" onclick="switchTab('risk')">&#x26A0;&#xFE0F; Risk Register</div>
+    <div class="tab-item" id="tab-timeline" onclick="switchTab('timeline')">&#x1F4C5; Ticket Timeline &amp; Issues</div>
+    <div class="tab-item" id="tab-todo" onclick="switchTab('todo')">&#x2705; To-Do</div>
   </div>
+
+  <div class="page active" id="page-kanban">
+    <div class="summary-row" id="summary-strip"></div>
+    <div class="sec-hd">
+      <div class="sec-bar" style="background:var(--blue)"></div>
+      <div class="sec-ttl">Kanban Board &mdash; May Sprint Tickets</div>
+      <div class="sec-pill">May 2026</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="kanban" id="kanban-board"></div>
+  </div>
+
+  <div class="page" id="page-risk">
+    <div class="sec-hd">
+      <div class="sec-bar" style="background:var(--red)"></div>
+      <div class="sec-ttl">Project Risk Register &middot; &#x9879;&#x76EE;&#x98CE;&#x9669;&#x767B;&#x8BB0;&#x518C;</div>
+      <div class="sec-pill" style="background:#FFF0EE;color:var(--red)" id="risk-count-badge">Active Risks</div>
+      <div class="sec-line"></div>
+    </div>
+    <table class="risk-tbl" id="risk-table">
+      <thead>
+        <tr>
+          <th>Risk ID</th>
+          <th>Risk Description &#x98CE;&#x9669;&#x63CF;&#x8FF0;</th>
+          <th>Category &#x7C7B;&#x522B;</th>
+          <th>Likelihood &#x53EF;&#x80FD;&#x6027;</th>
+          <th>Impact &#x5F71;&#x54CD;</th>
+          <th>RAG</th>
+          <th>Owner &#x8D1F;&#x8D23;&#x4EBA;</th>
+          <th>Mitigation &#x5E94;&#x5BF9;&#x63AA;&#x65BD;</th>
+          <th>Due Date &#x622A;&#x6B62;&#x65E5;</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="page" id="page-timeline">
+    <div class="sec-hd">
+      <div class="sec-bar" style="background:var(--amber)"></div>
+      <div class="sec-ttl">Ticket Timeline, Team &amp; Issues &middot; &#x7968;&#x636E;&#x65F6;&#x95F4;&#x7EBF;&#x3001;&#x56E2;&#x961F;&#x4E0E;&#x95EE;&#x9898;</div>
+      <div class="sec-pill" style="background:var(--amber-light);color:#7B4F00" id="tl-count-badge">Tickets</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="tl-grid" id="timeline-grid"></div>
+  </div>
+
+  <div class="page" id="page-todo">
+    <div class="sec-hd">
+      <div class="sec-bar" style="background:var(--green)"></div>
+      <div class="sec-ttl">Project To-Do List &middot; &#x9879;&#x76EE;&#x5F85;&#x529E;&#x4E8B;&#x9879;</div>
+      <div class="sec-pill" style="background:var(--green-light);color:#2D6A11" id="todo-count-badge">Items</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="todo-page-grid" id="todo-grid"></div>
+  </div>
+
+  <footer>
+    <span>Copyright <strong>2026</strong> Ant Group &ndash; Strictly Confidential &middot; &#x4E25;&#x683C;&#x4FDD;&#x5BC6;</span>
+    <span>SuperQi Project Dashboard &middot; v3.0 &middot; <span id="footer-date"></span></span>
+  </footer>
 </div>
-
-<!-- ════ ERROR BANNER ════ -->
-<div id="err-banner"></div>
-
-<!-- ════ FILE UPLOAD PANEL ════ -->
-<div id="file-panel">
-  <div class="fp-title">
-    <span>🐜</span> Update Dashboard
-  </div>
-  <div class="fp-sub">Upload your A+ project files. Claude will read and regenerate the dashboard automatically.</div>
-
-  <div class="fp-row">
-    <div class="fp-lbl">📄 A+info.docx — Project Information</div>
-    <div class="fp-drop" onclick="document.getElementById('f-docx').click()" id="drop-docx">
-      <input type="file" id="f-docx" accept=".docx,.doc,.txt,.pdf" onchange="onFileSelect(this,'drop-docx','fn-docx','docxFile')">
-      <div class="dp-icon">📁</div>
-      <div class="dp-txt">Click to upload .docx / .pdf / .txt</div>
-      <div class="dp-fn" id="fn-docx"></div>
-    </div>
-  </div>
-
-  <div class="fp-row">
-    <div class="fp-lbl">📊 tickets.xlsx — Ticket Data</div>
-    <div class="fp-drop" onclick="document.getElementById('f-xlsx').click()" id="drop-xlsx">
-      <input type="file" id="f-xlsx" accept=".xlsx,.xls,.csv" onchange="onFileSelect(this,'drop-xlsx','fn-xlsx','xlsxFile')">
-      <div class="dp-icon">📊</div>
-      <div class="dp-txt">Click to upload .xlsx / .csv</div>
-      <div class="dp-fn" id="fn-xlsx"></div>
-    </div>
-  </div>
-
-  <div class="fp-row">
-    <div class="fp-lbl">📋 处理要求.docx — Processing Instructions (Optional)</div>
-    <div class="fp-drop" onclick="document.getElementById('f-req').click()" id="drop-req">
-      <input type="file" id="f-req" accept=".docx,.doc,.txt,.pdf" onchange="onFileSelect(this,'drop-req','fn-req','reqFile')">
-      <div class="dp-icon">📋</div>
-      <div class="dp-txt">Click to upload processing instructions</div>
-      <div class="dp-fn" id="fn-req"></div>
-    </div>
-  </div>
-
-  <div class="fp-actions">
-    <button class="fp-btn secondary" onclick="closeFilePanel()">Cancel</button>
-    <button class="fp-btn primary" onclick="runUpdate()">🐜 Generate Dashboard</button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════
-     PAGE 1: KANBAN BOARD (home)
-══════════════════════════════════ -->
-<div class="page active" id="page-kanban">
-
-  <div class="summary-row" id="summary-strip">
-    <div class="sum-card bl"><div class="lbl">Total Tickets</div><div class="val">16</div><div class="hint">Sprint · May</div></div>
-    <div class="sum-card gr"><div class="lbl">Done</div><div class="val" style="color:var(--green)">2</div><div class="hint">12% complete</div></div>
-    <div class="sum-card am"><div class="lbl">Development &amp; Test</div><div class="val" style="color:#D97706">6</div><div class="hint">Dev / UAT</div></div>
-    <div class="sum-card bl"><div class="lbl">Release</div><div class="val" style="color:var(--blue)">7</div><div class="hint">Pen test / Release</div></div>
-    <div class="sum-card"><div class="lbl">Solution Design</div><div class="val">1</div><div class="hint">PRD / ISA</div></div>
-    <div class="sum-card re"><div class="lbl">Active Risks</div><div class="val" style="color:var(--red)">11</div><div class="hint">5 High · 6 Med</div></div>
-  </div>
-
-  <div class="sec-hd">
-    <div class="sec-bar" style="background:var(--blue)"></div>
-    <div class="sec-ttl">Jira Ticket Kanban Board — Phase View</div>
-    <div class="sec-pill">Sprint May · 16 tickets</div>
-    <div class="sec-line"></div>
-  </div>
-
-  <div class="kanban" id="kanban-board"><div class="kb-col col-gy"><div class="kb-head"><span class="cname">Backlog</span><span class="ccnt">0</span></div><div class="kb-cards"><div style="padding:14px;text-align:center;color:var(--muted);font-size:10px">No tickets</div></div></div><div class="kb-col col-bl"><div class="kb-head"><span class="cname">Requirement Analysis &amp; Solution Design</span><span class="ccnt">1</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-4578</div><div class="kc-title">Deeplink for mini app specific page cannot be opened</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">ISA / PRD</span><div class="kc-av" style="background:var(--blue)">Yi</div></div></div></div></div><div class="kb-col col-og"><div class="kb-head"><span class="cname">Development &amp; Test</span><span class="ccnt">6</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-316 · SPRQI-2040</div><div class="kc-title">Integration with User Behavior Analysis Tool</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:#DC4E2D">Li</div></div></div><div class="kb-card"><div class="kc-id">SPQI-2127 · SPRQI-7836</div><div class="kc-title">Accessibility Improvements for Visually Impaired Users – Phase 2</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:var(--blue)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4573</div><div class="kc-title">Display Miles &amp; Smiles Card in SuperQi Cards Page with Mini App Button</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">DEV</span><div class="kc-av" style="background:#DC4E2D">Li</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4779</div><div class="kc-title">Remove all name validation rules to support all characters</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:#DC4E2D">Li</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4836</div><div class="kc-title">A+ International Network – Settlement</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:var(--blue)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-1782 · SPRQI-6274</div><div class="kc-title">Enable Secure View Card Details</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT</span><div class="kc-av" style="background:var(--blue)">Yi</div></div></div></div></div><div class="kb-col col-pu"><div class="kb-head"><span class="cname">Release</span><span class="ccnt">7</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-307 · SPRQI-6208</div><div class="kc-title">Display International Velocity Limits (Remaining Amounts)</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Pending</span><div class="kc-av" style="background:var(--blue)">Yi</div></div></div><div class="kb-card"><div class="kc-id">SPQI-313 · SPRQI-3715</div><div class="kc-title">Accessibility Improvements for Visually Impaired Users – Phase 1</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-1239</div><div class="kc-title">Connect to Alipay+ CsB – Phase 1</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-1238</div><div class="kc-title">A+ Int. Network – BSC QR Code, Business to Customer</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4637</div><div class="kc-title">Groupon homepage selected time period not preserved</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:#7C3AED">Da</div></div></div><div class="kb-card"><div class="kc-id">SPQI-5313</div><div class="kc-title">Groupon Approval Whitelist</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:#0D9488">AL</div></div></div><div class="kb-card"><div class="kc-id">SPQI-5471</div><div class="kc-title">Update the Benefits Category section of World Elite</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">UAT Done</span><div class="kc-av" style="background:#0D9488">AL</div></div></div></div></div><div class="kb-col col-gr"><div class="kb-head"><span class="cname">Done</span><span class="ccnt">2</span></div><div class="kb-cards"><div class="kb-card"><div class="kc-id">SPQI-312 · SPRQI-5122</div><div class="kc-title">Pay by Qi (SuperQi as a payment method) – Phase 2 (SDK)</div><div class="kc-meta"><span class="kc-pri p-h">High</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">Jo</div></div></div><div class="kb-card"><div class="kc-id">SPQI-4719</div><div class="kc-title">New Scope For MiniApps &quot;account_list&quot;</div><div class="kc-meta"><span class="kc-pri p-m">Medium</span><span class="kc-tag">Done ✓</span><div class="kc-av" style="background:var(--green)">AL</div></div></div></div></div></div>
-</div>
-
-<!-- ══════════════════════════════════
-     PAGE 2: RISK REGISTER
-══════════════════════════════════ -->
-<div class="page" id="page-risk">
-  <div class="sec-hd">
-    <div class="sec-bar" style="background:var(--red)"></div>
-    <div class="sec-ttl">Project Risk Register · 项目风险登记册</div>
-    <div class="sec-pill" style="background:#FFF0EE;color:var(--red)">11 Active · 5 High</div>
-    <div class="sec-line"></div>
-  </div>
-  <table class="risk-tbl" id="risk-table">
-    <thead>
-      <tr>
-        <th style="width:48px">ID</th><th>Risk Description · 风险描述</th>
-        <th>Criticality<br>严重程度</th><th>RAG</th><th>Owner<br>责任方</th>
-        <th>Mitigation Strategy &amp; Action · 缓解措施</th>
-      </tr>
-    </thead>
-    <tbody><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-01</td>
-      <td><div style="font-weight:600;margin-bottom:3px">5B Release Delay Due to Penetration Test Postponement. Because of the Iraq public holiday (May 21–27), ISC&#x27;s security team postponed the penetration test, making the planned Jun 1 5B release no longer achievable.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">渗透测试推迟导致 5B 版本延期。受伊拉克公共假期（5月21–27日）影响，ISC 安全团队推迟了渗透测试，原定 6月1日 的 5B 发布已无法实现。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC / A+</td>
-      <td><div style="margin-bottom:3px">Re-confirm the revised penetration test completion date with ISC and jointly reschedule the 5B release timeline.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">与 ISC 重新确认渗透测试完成日期，并共同调整 5B 发布计划。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-02</td>
-      <td><div style="font-weight:600;margin-bottom:3px">UAT Sign-off Delays on Multiple Integration Features. For several May integration features ISC only signed off the ISA documents on May 20 (the final UAT day), causing UAT delays that may impact the release schedule.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">多个集成功能的 UAT 签核延迟。多个 5月集成功能的 ISA 文档 ISC 直到 5月20日（UAT 最后一天）才签核，导致 UAT 延期并可能影响整体发布计划。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC</td>
-      <td><div style="margin-bottom:3px">ISC is requested to expedite the sign-off process to avoid further UAT and release delays.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请求 ISC 加快签核流程，避免 UAT 与发布进一步延期。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-03</td>
-      <td><div style="font-weight:600;margin-bottom:3px">Mulesoft Production Deployment Blocked. Following the earlier Mulesoft dev delay, production deployment is now blocked, impacting Supply Platform, Merchant Voucher, SPQI-312 (Pay by Qi Phase 2) and SPQI-307 (Velocity Limits).</div><div style="color:var(--muted);font-size:10px;line-height:1.5">Mulesoft 生产部署受阻。继此前 Mulesoft 开发延迟后，其生产部署目前被阻塞，影响 Supply Platform、Merchant Voucher、SPQI-312（Pay by Qi 二期）及 SPQI-307（额度展示）。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC</td>
-      <td><div style="margin-bottom:3px">ISC is requested to urgently accelerate Mulesoft&#x27;s production release to unblock the affected features.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请求 ISC 紧急加速 Mulesoft 生产发布，以解除相关功能的阻塞。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-04</td>
-      <td><div style="font-weight:600;margin-bottom:3px">A+ Network Onboarding Contract Unsigned — Risk of Further Delay. ISC cancelled the 5A release and merged 5A and network-onboarding features into 5B (originally Jun 1). With the pending pen test, network onboarding may not go live until July. Pen-test findings on A+&#x27;s network are being clarified; cashback refund needs a business-process adjustment.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">A+ 网络接入合同未签署——存在进一步延期风险。ISC 取消 5A 发布并将 5A 与网络接入功能合并至 5B（原定 6月1日）。受渗透测试待定影响，网络接入可能要到 7月 才上线。安全团队就 A+ 网络提出的问题正在澄清；返现退款涉及业务流程调整。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--red)">A+ / ISC</td>
-      <td><div style="margin-bottom:3px">Cashback short-term fix confirmed; long-term solution under discussion between PD and ISC BA/Marketing. A+ to continue follow-up on contract signing and pen-test scheduling.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">返现短期方案已确认；长期方案由 PD 与 ISC BA/市场团队讨论中。A+ 将持续跟进合同签署与渗透测试排期。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-05</td>
-      <td><div style="font-weight:600;margin-bottom:3px">Google API Fees Unexpectedly High. Root cause identified by dev; the relevant business function has been disabled. A technical improvement plan has been drafted and shared with ISC, pending ISC confirmation.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">Google API 费用异常偏高。开发团队已定位根因，相关业务功能已禁用。技术改进方案已起草并与 ISC 共享，待 ISC 确认。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+ / ISC</td>
-      <td><div style="margin-bottom:3px">Root cause identified and explained to ISC. ISC confirmation of the remediation plan is required.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">根因已定位并向 ISC 说明。需 ISC 确认修复方案。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-06</td>
-      <td><div style="font-weight:600;margin-bottom:3px">RCA Report Submitted — Awaiting ISC Response. ISC security did not attend the May 21 clarification session. A+ shared a detailed analysis report with recommendations across ISC teams; ISC has not yet responded.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">RCA 报告已提交——等待 ISC 回复。ISC 安全团队未出席 5月21日 的澄清会议。A+ 已向 ISC 各团队分享了含建议的详细分析报告，ISC 尚未回复。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">ISC</td>
-      <td><div style="margin-bottom:3px">ISC to review and respond to A+&#x27;s analysis report and recommendations. Follow-up meeting to be scheduled.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请 ISC 审阅并回复 A+ 的分析报告与建议，并安排后续会议。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-07</td>
-      <td><div style="font-weight:600;margin-bottom:3px">Alibaba Cloud Resource Costs Remain High. A+ analysis points to an excessively high login TPS target set for the QI TV sales campaign. A+ recommends reducing the TPS requirement to lower configuration needs and cost; ISC has not yet approved.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">阿里云资源成本居高不下。A+ 分析指出原因之一是 QI TV 营销活动设置的登录 TPS 目标过高。A+ 建议降低 TPS 需求以减少配置与云服务成本；ISC 尚未批准。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+ / ISC</td>
-      <td><div style="margin-bottom:3px">Awaiting ISC response and approval of A+&#x27;s cost-reduction recommendation.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">等待 ISC 回复并批准 A+ 的降本建议。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-08</td>
-      <td><div style="font-weight:600;margin-bottom:3px">LangShine Urgent Blind Box Mini App Request. LangShine raised an urgent request on May 21 for A+ to collaborate on Blind Box Mini App development.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">LangShine 盲盒小程序紧急需求。LangShine 于 5月21日 提出紧急需求，要求 A+ 协作开发盲盒小程序。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+ / LangShine</td>
-      <td><div style="margin-bottom:3px">A+ has asked LangShine to first contact Yasir to confirm requirements before A+ can proceed.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">A+ 已要求 LangShine 先联系 Yasir 确认需求，A+ 方可推进。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-09</td>
-      <td><div style="font-weight:600;margin-bottom:3px">Facial Authentication Decision Pending (~2 months). ISC Security has not decided on the facial-authentication method for visually impaired users. The feature (SPQI-313 / SPQI-2127) has been pending ISC confirmation for ~2 months and cannot be released until decided.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">人脸认证方案待定（约2个月）。ISC 安全团队尚未就视障用户的人脸认证方式作出决定。该功能（SPQI-313 / SPQI-2127）已等待 ISC 确认约 2个月，未决定前无法发布。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-h">High</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-r"><span class="rag-dot"></span>RED</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--red)">ISC</td>
-      <td><div style="margin-bottom:3px">ISC to confirm the facial-authentication approach for visually impaired users. Feature is blocked pending this decision.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">请 ISC 确认视障用户的人脸认证方案。该功能在此决定前处于阻塞状态。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-10</td>
-      <td><div style="font-weight:600;margin-bottom:3px">RMS Mini App Onboarding Approach Undecided. ISC clients are unsatisfied with the current integration solution and are internally evaluating two options: one mini app per merchant vs. an Eatix aggregated mini app. A+ is exploring UX improvements in parallel.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">RMS 小程序接入方案未定。ISC 客户对当前集成方案不满意，正在内部评估两种方案：每商户一个小程序 vs. Eatix 聚合小程序。A+ 同步探索体验优化方案。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">ISC / A+</td>
-      <td><div style="margin-bottom:3px">Awaiting ISC internal decision on the integration approach. A+ to proceed once ISC confirms.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">等待 ISC 内部确定集成方案。ISC 确认后 A+ 即推进。</div></td>
-    </tr><tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px;white-space:nowrap">R-11</td>
-      <td><div style="font-weight:600;margin-bottom:3px">Groupon Scope-Change Request During Review. BA-side requirements are resolved, but during Yasir&#x27;s review a new requirement to add Groupon capabilities was raised. A+ is re-reviewing the scope of changes.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">评审中提出 Groupon 范围变更。BA 侧需求已解决，但在 Yasir 评审过程中提出新增 Groupon 能力的需求。A+ 正在重新评估变更范围。</div></td>
-      <td style="white-space:nowrap"><span class="imp imp-m">Medium</span></td>
-      <td style="white-space:nowrap"><span class="rag rag-a"><span class="rag-dot"></span>AMBER</span></td>
-      <td style="white-space:nowrap;font-weight:600;color:var(--dark)">A+</td>
-      <td><div style="margin-bottom:3px">A+ to deliver an updated scope assessment and response to ISC clients next week.</div><div style="color:var(--muted);font-size:10px;line-height:1.5">A+ 将于下周向 ISC 客户提交更新后的范围评估与回复。</div></td>
-    </tr></tbody>
-  </table>
-</div>
-
-<!-- ══════════════════════════════════
-     PAGE 3: TICKET TIMELINE & ISSUES
-══════════════════════════════════ -->
-<div class="page" id="page-timeline">
-  <div class="sec-hd">
-    <div class="sec-bar" style="background:var(--amber)"></div>
-    <div class="sec-ttl">Ticket Timeline · Stakeholders, Milestones, Issues &amp; To-Do</div>
-    <div class="sec-pill" style="background:var(--amber-light);color:#7B4F00">16 Monitored Tickets</div>
-    <div class="sec-line"></div>
-  </div>
-  <div class="tl-grid" id="timeline-grid">
-
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-312 · SPRQI-5122</span>
-        <span class="tl-name">Pay by Qi (SuperQi as a payment method) – Phase 2 (SDK)</span>
-        <span class="tl-sbadge ts-done">✅ Done</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-pu">KO</div><div><div class="p-name">Kola</div><div class="p-role">Solution Architect</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-gr">Ek</div><div><div class="p-name">Ekta</div><div class="p-role">ISC PM</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2025-10-13</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2025-10-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2025-11-19</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2025-11-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--red);text-align:right" style="font-weight:600">Pending – Mulesoft</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Production release blocked by Mulesoft deployment (R-03).</div><div class="todo-item">🟡 UAT completion date not recorded; ISA sign-off follow-up with ISC pending.</div><div class="todo-item">☐ Follow up third-party integration progress (SA: Kola).</div><div class="todo-item">☐ Push ISC to accelerate Mulesoft production release to unblock GA.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-316 · SPRQI-2040</span>
-        <span class="tl-name">Integration with User Behavior Analysis Tool</span>
-        <span class="tl-sbadge ts-prog">🔵 In UAT</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Li</div><div><div class="p-name">Lia</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">CD</div><div><div class="p-name">陈都</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">CX</div><div><div class="p-name">ChenXi</div><div class="p-role">UAT QA</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-02-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-22</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-22</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-19</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 DEV start logged as overdue; large effort item (&gt;200) under schedule pressure.</div><div class="todo-item">🟡 UAT in progress, awaiting completion ahead of Jun 1 release.</div><div class="todo-item">☐ Complete UAT and confirm completion date.</div><div class="todo-item">☐ Hold Jun 1 release / Jun 7 force-upgrade dates.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-2127 · SPRQI-7836</span>
-        <span class="tl-name">Accessibility Improvements for Visually Impaired Users – Phase 2</span>
-        <span class="tl-sbadge ts-blk">🔴 Blocked</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZC</div><div><div class="p-name">庄晨</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Fz</div><div><div class="p-name">Fazal / Nisha</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-03-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2026-04-29</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2026-05-11</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 BLOCKED: ISC facial-authentication decision pending ~2 months (R-09).</div><div class="issue-item">🔴 PRD sign-off pending @Yasir approval — no progress as of 05-06.</div><div class="todo-item">🟡 Depends on ISC security solution review.</div><div class="todo-item">☐ Escalate facial-auth decision to ISC Security.</div><div class="todo-item">☐ Obtain Yasir&#x27;s PRD approval to resume progress.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-4573</span>
-        <span class="tl-name">Display Miles &amp; Smiles Card in SuperQi Cards Page (Mini App Button)</span>
-        <span class="tl-sbadge ts-prog">🔵 In Dev</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Li</div><div><div class="p-name">Lia</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">QS</div><div><div class="p-name">邱少荣</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Re</div><div><div class="p-name">Reggie</div><div class="p-role">Solution Architect</div></div></div><div class="person-row"><div class="av av-gr">Ek</div><div><div class="p-name">Ekta</div><div class="p-role">ISC PM</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-03-17</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-17</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-09</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-11 → 05-12</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 DEV start logged as overdue.</div><div class="todo-item">🟡 UAT window very short (1 day) — risk if defects found.</div><div class="todo-item">☐ Complete development and enter UAT on schedule.</div><div class="todo-item">☐ Confirm release sprint with ISC PM (Ekta).</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-4779</span>
-        <span class="tl-name">Remove all name validation rules to support all characters</span>
-        <span class="tl-sbadge ts-blk">🔴 UAT Delayed</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Li</div><div><div class="p-name">Lia</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZY</div><div><div class="p-name">张月红</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">TS</div><div><div class="p-name">Tian ShanShan</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Re</div><div><div class="p-name">Reggie</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-04-09</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Not signed</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-19</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Unknown</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 UAT delayed: client requested immediate UAT on 05-20; as of 05-25 only ~50% complete. Client swapped QA; ~2-day slip expected.</div><div class="todo-item">🟡 PRD not signed off; ISA sign-off missing. Status logged &#x27;on hold&#x27; (05-06).</div><div class="todo-item">☐ Drive client to complete remaining UAT; confirm new QA onboarding.</div><div class="todo-item">☐ Chase PRD sign-off and ISA sign-off from ISC.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-4836</span>
-        <span class="tl-name">A+ International Network – Settlement</span>
-        <span class="tl-sbadge ts-prog">🔵 In UAT</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">HP</div><div><div class="p-name">胡鹏</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-01-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-02-04</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-17</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Part of A+ Int. Network scope affected by pen-test / UAT sign-off delays (R-01, R-02, R-04).</div><div class="todo-item">🟡 DEV start overdue; UAT completion not recorded.</div><div class="todo-item">☐ Complete UAT and record completion date.</div><div class="todo-item">☐ Track network-onboarding contract &amp; pen-test reschedule (R-04).</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-1782 · SPRQI-6274</span>
-        <span class="tl-name">Enable Secure View Card Details</span>
-        <span class="tl-sbadge ts-prog">🔵 In UAT</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Yi</div><div><div class="p-name">Yinan</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">WM</div><div><div class="p-name">文梦婷</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">TS</div><div><div class="p-name">Tian ShanShan</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Re</div><div><div class="p-name">Reggie</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-04-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-23</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-18 → 05-19</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Technical enhancement processed directly by SA; ISA signed-off then in dev.</div><div class="todo-item">🟡 ISA sign-off date not recorded; DEV start overdue.</div><div class="todo-item">☐ Complete UAT and confirm ISA sign-off record.</div><div class="todo-item">☐ Confirm release sprint.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-4578</span>
-        <span class="tl-name">Deeplink for mini app specific page cannot be opened</span>
-        <span class="tl-sbadge ts-prog">🔵 Solution Design</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Yi</div><div><div class="p-name">Yinan</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZW</div><div><div class="p-name">赵五一</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">LY</div><div><div class="p-name">Li Yuxuan</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">KO</div><div><div class="p-name">Kola</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-03-11</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Not signed</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-16</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Fell back to re-review the solution (04-01); PRD not signed off.</div><div class="todo-item">🟡 ISA sign-off pending; UAT not yet scheduled.</div><div class="todo-item">☐ Finalize solution design and obtain PRD sign-off.</div><div class="todo-item">☐ Confirm ISA sign-off, then schedule UAT.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-307 · SPRQI-6208</span>
-        <span class="tl-name">Display International Velocity Limits (Remaining Amounts)</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Yi</div><div><div class="p-name">Yinan</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">LY</div><div><div class="p-name">梁艳杰</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">CX</div><div><div class="p-name">ChenXi</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Ah</div><div><div class="p-name">Ahmed</div><div class="p-role">Solution Architect</div></div></div><div class="person-row"><div class="av av-gr">Ek</div><div><div class="p-name">Ekta</div><div class="p-role">ISC PM</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">BRD signoff</span><span style="color:var(--dark);text-align:right">2026-01-06</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-01-26</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-01-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-03-12 → 03-16</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-04-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-04-13</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-04-22</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Production blocked by Mulesoft deployment (R-03).</div><div class="todo-item">🟡 Status &#x27;Pending&#x27; — on-hold; AlipayCN does not have this feature (03-12). Awaiting ISC UAT verification.</div><div class="todo-item">☐ Follow up UAT verification with ISC (SA: Kola).</div><div class="todo-item">☐ Unblock Mulesoft release dependency.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-313 · SPRQI-3715</span>
-        <span class="tl-name">Accessibility Improvements for Visually Impaired Users – Phase 1</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">ZC</div><div><div class="p-name">庄晨</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Ah</div><div><div class="p-name">Ahmed</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2025-11-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-02-02</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2026-02-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2026-02-25</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-03-01</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-02-11</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="issue-item">🔴 Release gated by ISC facial-authentication decision (R-09), pending ~2 months.</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-03-01.</div><div class="todo-item">☐ Obtain ISC facial-auth decision to enable release.</div><div class="todo-item">☐ Confirm final release/force-upgrade dates.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-1239</span>
-        <span class="tl-name">Connect to Alipay+ CsB – Phase 1</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">FY</div><div><div class="p-name">樊亚宁</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Fz</div><div><div class="p-name">Fazal</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-01-15</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-02-04</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-02-06</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-27 → 04-30</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Part of A+ Int. Network — may be affected by 5B pen-test / sign-off delays (R-01, R-02).</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-08; release scheduled 05-20.</div><div class="todo-item">☐ Confirm 05-20 release holds against pen-test reschedule.</div><div class="todo-item">☐ Coordinate Jun 7 app force-upgrade.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-1238</span>
-        <span class="tl-name">A+ Int. Network – BSC QR Code, Business to Customer</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Jo</div><div><div class="p-name">Joy</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">FY</div><div><div class="p-name">樊亚宁</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">Fz</div><div><div class="p-name">Fazal</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD submit</span><span style="color:var(--dark);text-align:right">2026-03-12</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PRD signoff</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-03-27</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-27 → 04-30</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-07</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--dark);text-align:right">2026-06-07</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Network onboarding contract unsigned; commercial fund &amp; settlement solution to finalize (R-04).</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-07; release scheduled 05-20.</div><div class="todo-item">☐ Track contract signing &amp; pen-test reschedule (R-04).</div><div class="todo-item">☐ Confirm 05-20 release and force-upgrade.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-4637</span>
-        <span class="tl-name">Groupon homepage: selected time period not preserved</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">Da</div><div><div class="p-name">Danny</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-co">HW</div><div><div class="p-name">黄炜雄</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-07</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">DEV start</span><span style="color:var(--red);text-align:right" style="font-weight:600">Overdue</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-28 → 04-29</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-05</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 DEV start logged overdue; otherwise on track.</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-05; release scheduled 06-01.</div><div class="todo-item">☐ Hold Jun 1 release date.</div><div class="todo-item">☐ Confirm regression scope with QA.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-5313</span>
-        <span class="tl-name">Groupon Approval Whitelist</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">AL</div><div><div class="p-name">A+ PD (TBC)</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT start</span><span style="color:var(--dark);text-align:right">2026-04-28</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT end</span><span style="color:var(--dark);text-align:right">2026-04-29</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-11</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-06-01</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item">🟡 Potential scope change: new Groupon capability requested during Yasir review (R-11).</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-11.</div><div class="todo-item">☐ Deliver updated scope assessment to ISC (R-11).</div><div class="todo-item">☐ Hold Jun 1 release.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-5471</span>
-        <span class="tl-name">Update the Benefits Category section of World Elite</span>
-        <span class="tl-sbadge ts-rev">🟡 Pending Release</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-bl">AL</div><div><div class="p-name">A+ PD (TBC)</div><div class="p-role">A+ PD</div></div></div><div class="person-row"><div class="av av-am">Ki</div><div><div class="p-name">Kira</div><div class="p-role">UAT QA</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-05-08 → 05-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-08</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-20</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">App Force Upgrade</span><span style="color:var(--red);text-align:right" style="font-weight:600">Missing data</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 UAT completed 2026-05-08; release scheduled 05-20.</div><div class="todo-item">🟡 App force-upgrade date not recorded.</div><div class="todo-item">☐ Confirm app force-upgrade date.</div><div class="todo-item">☐ Confirm 05-20 release holds.</div></div>
-      </div>
-    </div>
-    <div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">SPQI-4719</span>
-        <span class="tl-name">New Scope For MiniApps &quot;account_list&quot;</span>
-        <span class="tl-sbadge ts-done">✅ Done</span>
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Stakeholders</div><div class="person-row"><div class="av av-co">XP</div><div><div class="p-name">徐鹏博</div><div class="p-role">A+ Dev (FO)</div></div></div><div class="person-row"><div class="av av-am">CX</div><div><div class="p-name">ChenXi</div><div class="p-role">UAT QA</div></div></div><div class="person-row"><div class="av av-pu">KO</div><div><div class="p-name">Kola</div><div class="p-role">Solution Architect</div></div></div></div>
-        <div class="tl-col"><div class="tl-clbl">Milestone Timeline</div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA submit</span><span style="color:var(--dark);text-align:right">2026-04-13</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">ISA signoff</span><span style="color:var(--dark);text-align:right">2026-04-21</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">PD show</span><span style="color:var(--dark);text-align:right">2026-04-14</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT</span><span style="color:var(--dark);text-align:right">2026-04-27 → 04-28</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">UAT completed</span><span style="color:var(--dark);text-align:right">2026-05-06</span></div><div style="display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed var(--border);font-size:10px"><span style="color:var(--muted)">Release</span><span style="color:var(--dark);text-align:right">2026-05-07</span></div></div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues / Blockers &amp; Next To-Do</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 On track throughout; PRD signed off 04-08; UAT plan met.</div><div class="todo-item" style="background:var(--green-light);border-left-color:var(--green);color:#2D6A11">🟢 Released 2026-05-07.</div><div class="todo-item">☐ Post-release monitoring; no open actions.</div></div>
-      </div>
-    </div>
-
-  </div><!-- end timeline-grid -->
-</div>
-
-<footer>
-  <span>Copyright <strong>2026</strong> Ant Group – Strictly Confidential</span>
-  <span>SuperQi Project Dashboard · v3.0 · <span id="footer-date"></span></span>
-</footer>
 
 <script>
-// ══ GLOBALS ══
-let docxFile = null, xlsxFile = null, reqFile = null;
-
-// ══ TAB SWITCHING ══
+const CREDS={user:'superqi2026',pass:'superqi2026'};
+function doLogin(){
+  const u=document.getElementById('login-user').value.trim();
+  const p=document.getElementById('login-pass').value;
+  if(u===CREDS.user&&p===CREDS.pass){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').classList.add('show');
+    renderSummary(DASHBOARD_DATA.summary);
+    renderKanban(DASHBOARD_DATA.kanban);
+    renderRisks(DASHBOARD_DATA.risks);
+    renderTimeline(DASHBOARD_DATA.tickets);
+    renderTodos(DASHBOARD_DATA.todos);
+  }else{
+    document.getElementById('login-err').style.display='block';
+    document.getElementById('login-pass').value='';
+    document.getElementById('login-pass').focus();
+  }
+}
+function doLogout(){
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('login-err').style.display='none';
+  document.getElementById('app').classList.remove('show');
+  document.getElementById('login-screen').style.display='flex';
+}
 function switchTab(name){
   document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   document.getElementById('page-'+name).classList.add('active');
-  closeFilePanel();
+}
+function renderSummary(s){
+  document.getElementById('summary-strip').innerHTML=`
+    <div class="sum-card bl"><div class="lbl">Total Tickets (May)</div><div class="val">${s.total||0}</div><div class="hint">May Sprint</div></div>
+    <div class="sum-card gr"><div class="lbl">Done &#x5DF2;&#x5B8C;&#x6210;</div><div class="val" style="color:var(--green)">${s.done||0}</div><div class="hint">${s.total?Math.round((s.done/s.total)*100):0}%</div></div>
+    <div class="sum-card bl"><div class="lbl">In Dev/Test &#x5F00;&#x53D1;&#x4E2D;</div><div class="val" style="color:var(--blue)">${s.indev||0}</div><div class="hint"></div></div>
+    <div class="sum-card am"><div class="lbl">In Release &#x53D1;&#x5E03;&#x4E2D;</div><div class="val" style="color:#D97706">${s.inrelease||0}</div><div class="hint"></div></div>
+    <div class="sum-card re"><div class="lbl">Active Risks &#x98CE;&#x9669;</div><div class="val" style="color:var(--red)">${s.risks||0}</div><div class="hint"></div></div>
+    <div class="sum-card gr"><div class="lbl">Open To-Dos &#x5F85;&#x529E;</div><div class="val">${s.todos||0}</div><div class="hint"></div></div>`;
+}
+function renderKanban(kb){
+  const cols=[
+    {key:'backlog',cls:'col-backlog',name:'Backlog',sub:'Req. Collection &middot; BRD'},
+    {key:'req',cls:'col-req',name:'Req. Analysis &amp; Design',sub:'PRD &middot; UIUX &middot; ISA'},
+    {key:'dev',cls:'col-dev',name:'Development &amp; Test',sub:'Dev &middot; Int. Test &middot; UAT'},
+    {key:'release',cls:'col-rel',name:'Release',sub:'Pen Test &middot; Reg. Test &middot; Release'},
+    {key:'done',cls:'col-done',name:'Done',sub:''}
+  ];
+  document.getElementById('kanban-board').innerHTML=cols.map(col=>{
+    const cards=(kb[col.key]||[]);
+    return `<div class="kb-col ${col.cls}"><div class="kb-head"><span class="cname">${col.name}${col.sub?`<br><span style="font-size:8px;font-weight:400;text-transform:none">${col.sub}</span>`:''}</span><span class="ccnt">${cards.length}</span></div><div class="kb-cards">${cards.map(c=>{const pri=c.priority==='High'?'p-h':c.priority==='Low'?'p-l':'p-m';const av=(c.assignee||'').slice(0,2).toUpperCase()||'??';return `<div class="kb-card">${c.phase?`<div class="kc-phase">${c.phase}</div>`:''}<div class="kc-id">${c.id}</div><div class="kc-title">${c.title}</div><div class="kc-meta"><span class="kc-pri ${pri}">${c.priority||'Med'}</span>${c.tag?`<span class="kc-tag">${c.tag}</span>`:''}<div class="kc-av">${av}</div></div></div>`;}).join('')}</div></div>`;
+  }).join('');
+}
+function renderRisks(risks){
+  document.getElementById('risk-count-badge').textContent=risks.length+' Active Risks';
+  document.querySelector('#risk-table tbody').innerHTML=risks.map(r=>{
+    const rc=r.rag==='RED'?'rag-r':r.rag==='GREEN'?'rag-g':'rag-a';
+    const ih=v=>v==='High'?'imp-h':v==='Low'?'imp-l':'imp-m';
+    return `<tr><td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">${r.id}</td><td><div class="bilingual"><div class="bi-en">${r.en}</div><div class="bi-cn">${r.cn||''}</div></div></td><td><span class="kc-tag">${r.category||''}</span></td><td><span class="imp ${ih(r.likelihood)}">${r.likelihood}</span></td><td><span class="imp ${ih(r.impact)}">${r.impact}</span></td><td><span class="rag ${rc}"><span class="rag-dot"></span>${r.rag}</span></td><td>${r.owner||''}</td><td><div class="bilingual"><div class="bi-en">${r.mitigationEn||''}</div><div class="bi-cn">${r.mitigationCn||''}</div></div></td><td style="font-weight:600;color:${r.rag==='RED'?'var(--red)':'var(--dark)'}">${r.due||''}</td></tr>`;
+  }).join('');
+}
+function renderTimeline(tickets){
+  document.getElementById('tl-count-badge').textContent=tickets.length+' Tickets';
+  const smap={'In Progress':'<span class="tl-sbadge ts-prog">&#x1F535; In Progress</span>','In Review':'<span class="tl-sbadge ts-rev">&#x1F7E1; In Review</span>','Blocked':'<span class="tl-sbadge ts-blk">&#x1F534; Blocked</span>','Done':'<span class="tl-sbadge ts-done">&#x2705; Done</span>'};
+  document.getElementById('timeline-grid').innerHTML=tickets.map(t=>{
+    const ms=(t.milestones||[]);
+    let msHtml='<div class="milestone-track">';
+    ms.forEach((m,i)=>{if(i>0)msHtml+=`<div class="ms-line ${m.state==='done'?'done':''}"></div>`;msHtml+=`<div class="ms-wrap"><div class="ms-item"><div class="ms-dot ${m.state||'pending'}"></div><div class="ms-name">${m.name}</div>${m.date?`<div class="ms-date">${m.date}</div>`:''}</div></div>`;});
+    msHtml+='</div>';
+    const teamHtml=(t.team||[]).map(p=>`<div class="person-row"><div class="av ${p.color||'av-bl'}">${p.initials||'??'}</div><div><div class="p-name">${p.name}</div><div class="p-role">${p.role}</div><span class="p-org ${p.org==='ISC'?'org-isc':'org-ap'}">${p.org||'A+'}</span></div></div>`).join('');
+    const issuesHtml=(t.issues||[]).map(i=>`<div class="issue-item">&#x1F7E1; ${i}</div>`).join('');
+    const blockHtml=(t.blockers||[]).map(b=>`<div class="blocker-item">&#x1F534; ${b}</div>`).join('');
+    const riskHtml=(t.risks||[]).map(r=>`<div class="risk-item">&#x26A0;&#xFE0F; ${r}</div>`).join('');
+    const todoHtml=(t.todos||[]).map(td=>`<div class="todo-item">&#x2610; ${td}</div>`).join('');
+    return `<div class="tl-card"><div class="tl-head"><span class="tl-id">${t.id}</span><span class="tl-name">${t.title}</span>${smap[t.status]||smap['In Progress']}</div><div class="tl-milestone-row">${msHtml}</div><div class="tl-body"><div class="tl-col"><div class="tl-clbl">Team &#x56E2;&#x961F;</div>${teamHtml}</div><div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Issues &amp; Blockers</div>${blockHtml}${issuesHtml}${riskHtml?`<div style="margin-top:4px">${riskHtml}</div>`:''}</div><div class="tl-col"><div class="tl-clbl" style="color:#7B4F00">Next To-Do</div>${todoHtml}</div></div></div>`;
+  }).join('');
+}
+function renderTodos(groups){
+  let total=0;groups.forEach(g=>total+=(g.items||[]).length);
+  document.getElementById('todo-count-badge').textContent=total+' Items';
+  const partyColors={'ISC':'linear-gradient(90deg,#4338CA,#6366F1)','A+':'linear-gradient(90deg,#1677FF,#0958D9)','IDMS':'linear-gradient(90deg,#0D9488,#0F766E)','Mulesoft':'linear-gradient(90deg,#0EA5E9,#0284C7)','CMS':'linear-gradient(90deg,#D97706,#B45309)','Regula':'linear-gradient(90deg,#C0392B,#9B1C1C)','default':'linear-gradient(90deg,#475569,#334155)'};
+  document.getElementById('todo-grid').innerHTML=groups.map(g=>{
+    const items=g.items||[];const grad=partyColors[g.party]||partyColors['default'];
+    return `<div class="todo-group"><div class="todo-group-head" style="background:${grad}"><span class="tg-party">&#x1F41C; ${g.party}</span><span class="tg-cnt">${items.length} items</span></div><div class="todo-items-list">${items.map(item=>{const dlCls=item.deadlineLevel==='hot'?'dl-hot':item.deadlineLevel==='warn'?'dl-warn':item.deadlineLevel==='ok'?'dl-ok':'';return `<div class="td-item"><div class="td-check" onclick="this.classList.toggle('done')"></div><div class="td-content"><div class="td-en">${item.en}</div>${item.cn?`<div class="td-cn">${item.cn}</div>`:''}<div class="td-meta">${item.owner?`<span class="td-owner">&#x1F464; ${item.owner}</span>`:''}${item.deadline?`<span class="td-deadline ${dlCls}">&#x1F4C5; ${item.deadline}</span>`:''}${item.tag?`<span class="td-tag">${item.tag}</span>`:''}</div></div></div>`;}).join('')}</div></div>`;
+  }).join('');
 }
 
-// ══ FILE PANEL ══
-function openFilePanel(){
-  document.getElementById('file-panel').classList.add('show');
-}
-function closeFilePanel(){
-  document.getElementById('file-panel').classList.remove('show');
-}
-document.addEventListener('click', e=>{
-  const panel = document.getElementById('file-panel');
-  const btn = document.getElementById('btn-update');
-  if(!panel.contains(e.target) && !btn.contains(e.target)) closeFilePanel();
-});
-
-function onFileSelect(input, dropId, fnId, varName){
-  const file = input.files[0];
-  if(!file) return;
-  if(varName==='docxFile') docxFile=file;
-  else if(varName==='xlsxFile') xlsxFile=file;
-  else if(varName==='reqFile') reqFile=file;
-  document.getElementById(fnId).textContent = '✓ '+file.name;
-  document.getElementById(dropId).style.borderColor='var(--green)';
-  document.getElementById(dropId).style.background='var(--green-light)';
-}
-
-// ══ SHOW/HIDE LOADER ══
-function showLoader(msg){
-  document.getElementById('loader-msg').textContent = msg||'Processing...';
-  document.getElementById('loader').classList.add('show');
-}
-function hideLoader(){ document.getElementById('loader').classList.remove('show'); }
-
-// ══ ERROR BANNER ══
-function showError(msg){
-  const b = document.getElementById('err-banner');
-  b.textContent = '⚠️ '+msg;
-  b.classList.add('show');
-  setTimeout(()=>b.classList.remove('show'), 6000);
-}
-
-// ══ READ FILE AS TEXT ══
-function readFileAsText(file){
-  return new Promise((resolve,reject)=>{
-    const reader = new FileReader();
-    if(file.name.match(/\.(xlsx|xls)$/i)){
-      reader.onload = e=>{
-        // For xlsx, return base64 and note it's spreadsheet
-        resolve('[EXCEL FILE: '+file.name+' - '+Math.round(file.size/1024)+'KB - Please extract key ticket data: ticket IDs, titles, status, assignees, priorities, dates, issues, and to-dos from this spreadsheet]');
-      };
-      reader.readAsText(file);
-    } else {
-      reader.onload = e=>resolve(e.target.result);
-      reader.onerror = reject;
-      reader.readAsText(file, 'utf-8');
-    }
-  });
-}
-
-// ══ CALL CLAUDE API ══
-async function callClaude(systemPrompt, userContent){
-  const response = await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({
-      model:'claude-sonnet-4-20250514',
-      max_tokens:4000,
-      system: systemPrompt,
-      messages:[{role:'user', content: userContent}]
-    })
-  });
-  if(!response.ok){
-    const err = await response.json().catch(()=>({}));
-    throw new Error(err.error?.message || 'API call failed: '+response.status);
-  }
-  const data = await response.json();
-  return data.content.filter(b=>b.type==='text').map(b=>b.text).join('\n');
-}
-
-// ══ PARSE CLAUDE JSON RESPONSE ══
-function parseJSON(text){
-  const clean = text.replace(/```json\s*/gi,'').replace(/```\s*/gi,'').trim();
-  try{ return JSON.parse(clean); } catch(e){
-    // Try to extract JSON object
-    const m = clean.match(/\{[\s\S]*\}/);
-    if(m) return JSON.parse(m[0]);
-    throw e;
-  }
-}
-
-// ══ MAIN UPDATE FUNCTION ══
-async function runUpdate(){
-  closeFilePanel();
-
-  if(!docxFile && !xlsxFile){
-    showError('Please upload at least one file (A+info.docx or tickets.xlsx)');
-    return;
-  }
-
-  showLoader('Reading uploaded files...');
-
-  try {
-    // 1. Read files
-    let docxContent='', xlsxContent='', reqContent='';
-    if(docxFile){ showLoader('Reading '+docxFile.name+'...'); docxContent = await readFileAsText(docxFile); }
-    if(xlsxFile){ showLoader('Reading '+xlsxFile.name+'...'); xlsxContent = await readFileAsText(xlsxFile); }
-    if(reqFile){ showLoader('Reading processing instructions...'); reqContent = await readFileAsText(reqFile); }
-
-    // 2. Build prompt
-    const systemPrompt = `You are a project management AI for SuperQi (A+ project at Ant International).
-You will analyze project files and extract structured data to populate a dashboard.
-You MUST respond ONLY with a valid JSON object — no prose, no markdown fences, no explanation.
-The JSON must exactly match this schema:
-{
-  "summary": { "total":number, "done":number, "inprogress":number, "inreview":number, "risks":number, "team":number },
-  "kanban": {
-    "backlog": [{"id":"","title":"","priority":"High|Medium|Low","tag":"","assignee":""}],
-    "inprogress": [{"id":"","title":"","priority":"","tag":"","assignee":""}],
-    "inreview": [{"id":"","title":"","priority":"","tag":"","assignee":""}],
-    "testing": [{"id":"","title":"","priority":"","tag":"","assignee":""}],
-    "done": [{"id":"","title":"","priority":"","tag":"","assignee":""}]
+// ══ DASHBOARD DATA ══
+const DASHBOARD_DATA = {
+  "summary": {
+    "total": 14,
+    "done": 2,
+    "indev": 9,
+    "inrelease": 0,
+    "risks": 13,
+    "todos": 16
   },
-  "risks": [{"id":"RISK-001","description":"","category":"","likelihood":"High|Medium|Low","impact":"High|Medium|Low","rag":"RED|AMBER|GREEN","owner":"","mitigation":"","due":""}],
-  "tickets": [{"id":"","title":"","status":"In Progress|In Review|Blocked|Done","team":[{"initials":"","name":"","role":"","color":"av-bl|av-tl|av-pu|av-co|av-gr|av-am|av-pk|av-sl"}],"issues":[""],"todos":[""]}]
-}`;
-
-    const userContent = `Analyze the following project files and extract dashboard data.
-${reqContent ? 'PROCESSING INSTRUCTIONS:\n'+reqContent+'\n\n' : ''}
-${docxContent ? 'PROJECT INFO FILE (A+info.docx):\n'+docxContent.slice(0,8000)+'\n\n' : ''}
-${xlsxContent ? 'TICKET DATA FILE (tickets.xlsx):\n'+xlsxContent.slice(0,8000)+'\n\n' : ''}
-Generate the JSON dashboard data now. Focus on extracting real ticket IDs, titles, assignees, statuses, risks, and issues from the files above.`;
-
-    showLoader('Calling Claude AI to analyze files...');
-    const result = await callClaude(systemPrompt, userContent);
-
-    showLoader('Rendering dashboard...');
-    const data = parseJSON(result);
-
-    // 3. Update all dashboard sections
-    updateSummary(data.summary);
-    if(data.kanban) updateKanban(data.kanban);
-    if(data.risks) updateRiskTable(data.risks);
-    if(data.tickets) updateTimeline(data.tickets);
-
-    hideLoader();
-    switchTab('kanban');
-
-    // Show success toast
-    showSuccess('Dashboard updated successfully from your files!');
-
-  } catch(err){
-    hideLoader();
-    console.error(err);
-    showError('Update failed: '+err.message+'. Check console for details.');
-  }
-}
-
-// ══ SUCCESS TOAST ══
-function showSuccess(msg){
-  const b = document.getElementById('err-banner');
-  b.style.background='var(--green-light)';
-  b.style.borderColor='var(--green)';
-  b.style.color='var(--green)';
-  b.textContent='✅ '+msg;
-  b.classList.add('show');
-  setTimeout(()=>{
-    b.classList.remove('show');
-    b.style.background='';b.style.borderColor='';b.style.color='';
-  },4000);
-}
-
-// ══ RENDER FUNCTIONS ══
-function avColor(c){ return c||'av-bl'; }
-
-function updateSummary(s){
-  if(!s) return;
-  const strip = document.getElementById('summary-strip');
-  strip.innerHTML = `
-    <div class="sum-card bl"><div class="lbl">Total Tickets</div><div class="val">${s.total||0}</div><div class="hint">Current Sprint</div></div>
-    <div class="sum-card gr"><div class="lbl">Completed</div><div class="val" style="color:var(--green)">${s.done||0}</div><div class="hint">${s.total?Math.round((s.done/s.total)*100):0}% done</div></div>
-    <div class="sum-card bl"><div class="lbl">In Progress</div><div class="val" style="color:var(--blue)">${s.inprogress||0}</div><div class="hint">On track</div></div>
-    <div class="sum-card am"><div class="lbl">In Review</div><div class="val" style="color:#D97706">${s.inreview||0}</div><div class="hint">Pending approval</div></div>
-    <div class="sum-card re"><div class="lbl">Active Risks</div><div class="val" style="color:var(--red)">${s.risks||0}</div><div class="hint">See Risk Register</div></div>
-    <div class="sum-card"><div class="lbl">Team Members</div><div class="val">${s.team||0}</div><div class="hint">Cross-functional</div></div>`;
-}
-
-function cardHTML(t, col){
-  const priCls = t.priority==='High'?'p-h':t.priority==='Low'?'p-l':'p-m';
-  const avColor = {'Danny':'var(--blue)','Sam':'#DC4E2D','Alex':'#0D9488','Flora':'#BE185D','Mike':'#7C3AED','Chen':'#7C3AED'}[t.assignee?.split(' ')[0]]||'var(--blue)';
-  return `<div class="kb-card"><div class="kc-id">${t.id}</div><div class="kc-title">${t.title}</div><div class="kc-meta"><span class="kc-pri ${priCls}">${t.priority}</span><span class="kc-tag">${t.tag||''}</span><div class="kc-av" style="background:${avColor}">${(t.assignee||'?').slice(0,2).toUpperCase()}</div></div></div>`;
-}
-
-function updateKanban(kb){
-  const cols = {backlog:'col-gy',inprogress:'col-bl',inreview:'col-og',testing:'col-pu',done:'col-gr'};
-  const names = {backlog:'Backlog',inprogress:'In Progress',inreview:'In Review',testing:'Testing / UAT',done:'Done'};
-  const board = document.getElementById('kanban-board');
-  board.innerHTML = Object.entries(cols).map(([key,cls])=>{
-    const cards = (kb[key]||[]);
-    return `<div class="kb-col ${cls}">
-      <div class="kb-head"><span class="cname">${names[key]}</span><span class="ccnt">${cards.length}</span></div>
-      <div class="kb-cards">${cards.map(c=>cardHTML(c,cls)).join('')}</div>
-    </div>`;
-  }).join('');
-}
-
-function updateRiskTable(risks){
-  const tbody = document.querySelector('#risk-table tbody');
-  tbody.innerHTML = risks.map(r=>{
-    const ragCls = r.rag==='RED'?'rag-r':r.rag==='GREEN'?'rag-g':'rag-a';
-    const ragLbl = r.rag||'AMBER';
-    const impH=(v)=>v==='High'?'imp-h':v==='Low'?'imp-l':'imp-m';
-    return `<tr>
-      <td style="font-family:monospace;font-weight:700;color:var(--blue);font-size:10px">${r.id}</td>
-      <td style="font-weight:600">${r.description}</td>
-      <td><span class="kc-tag">${r.category}</span></td>
-      <td><span class="imp ${impH(r.likelihood)}">${r.likelihood}</span></td>
-      <td><span class="imp ${impH(r.impact)}">${r.impact}</span></td>
-      <td><span class="rag ${ragCls}"><span class="rag-dot"></span>${ragLbl}</span></td>
-      <td>${r.owner}</td>
-      <td>${r.mitigation}</td>
-      <td style="font-weight:600;color:${r.rag==='RED'?'var(--red)':'var(--dark)'}">${r.due}</td>
-    </tr>`;
-  }).join('');
-}
-
-function updateTimeline(tickets){
-  const grid = document.getElementById('timeline-grid');
-  const statusMap={
-    'In Progress':'<span class="tl-sbadge ts-prog">🔵 In Progress</span>',
-    'In Review':'<span class="tl-sbadge ts-rev">🟡 In Review</span>',
-    'Blocked':'<span class="tl-sbadge ts-blk">🔴 Blocked</span>',
-    'Done':'<span class="tl-sbadge ts-done">✅ Done</span>'
-  };
-  grid.innerHTML = tickets.map(t=>{
-    const team = (t.team||[]).map(p=>`<div class="person-row"><div class="av ${p.color||'av-bl'}">${p.initials||'??'}</div><div><div class="p-name">${p.name}</div><div class="p-role">${p.role}</div></div></div>`).join('');
-    const issues = (t.issues||[]).map(i=>`<div class="issue-item">${i}</div>`).join('');
-    const todos = (t.todos||[]).map(td=>`<div class="todo-item">☐ ${td}</div>`).join('');
-    return `<div class="tl-card">
-      <div class="tl-head">
-        <span class="tl-id">${t.id}</span>
-        <span class="tl-name">${t.title}</span>
-        ${statusMap[t.status]||statusMap['In Progress']}
-      </div>
-      <div class="tl-body">
-        <div class="tl-col"><div class="tl-clbl">Team Members</div>${team}</div>
-        <div class="tl-col"><div class="tl-clbl" style="color:var(--red)">Current Issues</div>${issues}</div>
-        <div class="tl-col"><div class="tl-clbl" style="color:#7B4F00">To-Do</div>${todos}</div>
-      </div>
-    </div>`;
-  }).join('');
-}
+  "kanban": {
+    "backlog": [
+      {
+        "id": "SPQI-307",
+        "title": "Display International Velocity Limits (Remaining Amounts)",
+        "phase": "Pending",
+        "priority": "Medium",
+        "tag": "Feature",
+        "assignee": "Yinan"
+      },
+      {
+        "id": "SPQI-313",
+        "title": "Accessibility Improvements for Visually Impaired Users - Phase 1",
+        "phase": "Pending",
+        "priority": "Medium",
+        "tag": "Accessibility",
+        "assignee": "Joy"
+      },
+      {
+        "id": "SPQI-2127",
+        "title": "Accessibility Improvements for Visually Impaired Users - Phase 2",
+        "phase": "Pending",
+        "priority": "Medium",
+        "tag": "Accessibility",
+        "assignee": "Joy"
+      }
+    ],
+    "req": [],
+    "dev": [
+      {
+        "id": "SPQI-316",
+        "title": "Integration with User Behavior Analysis Tool",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "Analytics",
+        "assignee": "Lia"
+      },
+      {
+        "id": "SPQI-1239",
+        "title": "Connect to Alipay+ CsB-phase1",
+        "phase": "UAT",
+        "priority": "High",
+        "tag": "Network",
+        "assignee": "Joy"
+      },
+      {
+        "id": "SPQI-4578",
+        "title": "Deeplink for Mini App Specific Page Cannot Be Opened",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "MiniApp",
+        "assignee": "Yinan"
+      },
+      {
+        "id": "SPQI-4573",
+        "title": "Display Miles & Smiles Card in SuperQi Cards Page with Mini App Button",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "MiniApp",
+        "assignee": "Lia"
+      },
+      {
+        "id": "SPQI-1238",
+        "title": "A+ Int. Network - BSC QR Code, Business to Customer",
+        "phase": "UAT",
+        "priority": "High",
+        "tag": "Network",
+        "assignee": "Joy"
+      },
+      {
+        "id": "SPQI-4637",
+        "title": "Selected Time Period on Groupon Homepage Not Preserved After Reopening",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "MiniApp",
+        "assignee": "Danny"
+      },
+      {
+        "id": "SPQI-4779",
+        "title": "Remove All Name Validation Rules in SuperQi to Support All Characters",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "User Data",
+        "assignee": "Lia"
+      },
+      {
+        "id": "SPQI-4836",
+        "title": "A+ International Network - Settlement",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "Network",
+        "assignee": "Joy"
+      },
+      {
+        "id": "SPQI-1782",
+        "title": "Enable Secure View Card Details",
+        "phase": "UAT",
+        "priority": "Medium",
+        "tag": "Security",
+        "assignee": "Yinan"
+      }
+    ],
+    "release": [],
+    "done": [
+      {
+        "id": "SPQI-312",
+        "title": "Pay by Qi (SuperQi as a payment method) - Phase 2",
+        "phase": "Done",
+        "priority": "High",
+        "tag": "Payment",
+        "assignee": "Joy"
+      },
+      {
+        "id": "SPQI-4719",
+        "title": "New Scope For MiniApps \"account_list\"",
+        "phase": "Done",
+        "priority": "Medium",
+        "tag": "MiniApp",
+        "assignee": "徐鹏博"
+      }
+    ]
+  },
+  "risks": [
+    {
+      "id": "RISK-001",
+      "en": "5B release delay risk: Pen test report has multiple high-severity issues; ISC security sign-off not received; ISC on holiday",
+      "cn": "5B版本发布存在延期风险：ISC渗透测试报告延期，高风险问题部分待客户确认，客户假期未回复",
+      "category": "Release",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "Adnan / 张鸿",
+      "mitigationEn": "A+ has emailed ISC to clarify issues; some are third-party issues. Awaiting ISC security team approval before release.",
+      "mitigationCn": "A+已邮件澄清问题，部分为三方问题，等待ISC安全团队审批放行",
+      "due": "31 May 2026"
+    },
+    {
+      "id": "RISK-002",
+      "en": "5B release delay: SPQI-4779 ISC UAT not completed; IDMS test data errors blocking card-related acceptance tests",
+      "cn": "5B发布风险：SPQI-4779 ISC UAT未完成，IDMS测试数据有误导致卡相关场景验收无法完成",
+      "category": "UAT",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "Hussain Y / 王志兴",
+      "mitigationEn": "IDMS to provide corrected test data by 27 May. ISC to complete UAT or Hussain to decide on scope carve-out (no toggle available).",
+      "mitigationCn": "需要IDMS在27号前给出测试数据，ISC完成UAT或Hussain决策剥离需求",
+      "due": "27 May 2026"
+    },
+    {
+      "id": "RISK-003",
+      "en": "5B release delay: Amplitude API key not provided; ISC security data forwarding solution not confirmed",
+      "cn": "5B发布风险：Amplitude API Key未提供，数据转发方案客户未确认",
+      "category": "Integration",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "Hussain Y / 王志兴",
+      "mitigationEn": "Option 1: ISC provides API key + confirms data forwarding by 29 May. Option 2: ISC decides to carve out the SDK (half-day effort).",
+      "mitigationCn": "方案1：提供API key+确认数据转发方案（5.29）；方案2：客户决策剥离SDK（半天完成）",
+      "due": "29 May 2026"
+    },
+    {
+      "id": "RISK-004",
+      "en": "A+ network integration contract not signed; risk of delayed go-live — next window after June deadline is July",
+      "cn": "A+入网合同未签署，5A已取消并并入5B（6.1），如6月底生产验收未完成只能赶7月窗口",
+      "category": "Commercial",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "Jack / Sahar",
+      "mitigationEn": "Requested written confirmation from Yasir. 5B release to proceed normally; ISC to provide written approval for prod release without signed contract.",
+      "mitigationCn": "已要求Yasir书面回复，5B正常发布，等待ISC书面批准无合同生产发布",
+      "due": "10 Jun 2026"
+    },
+    {
+      "id": "RISK-005",
+      "en": "Cashback refund security issue flagged in 5A pen test; short-term fix ready but pending ISC security approval; long-term solution under discussion",
+      "cn": "安全团队在5A渗透测试中就cashback refund方案提出问题，短期方案待客户安全团队审批，长期方案还在讨论",
+      "category": "Security",
+      "likelihood": "Medium",
+      "impact": "Medium",
+      "rag": "AMBER",
+      "owner": "Jack / Adnan",
+      "mitigationEn": "Short-term: fix developed, awaiting ISC security team go/no-go. Long-term: business process changes under discussion with ISC BA/Marketing.",
+      "mitigationCn": "短期方案：已开发，待客户安全团队确认；长期方案：与ISC BA/Marketing讨论业务流程调整",
+      "due": "31 May 2026"
+    },
+    {
+      "id": "RISK-006",
+      "en": "LBS/Main Search features blocked by Mulesoft development delays; multiple email follow-ups have not produced a schedule",
+      "cn": "供给平台LBS/主搜功能因三方mulesoft开发延期无法开量，多次邮件询问对方未提供计划",
+      "category": "Third Party",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "王志兴 / Iman",
+      "mitigationEn": "Continuing to escalate to Mulesoft. Awaiting production deployment plan.",
+      "mitigationCn": "持续催促Mulesoft，等待生产部署计划",
+      "due": "31 May 2026"
+    },
+    {
+      "id": "RISK-007",
+      "en": "Pay by Qi Phase 2 and Merchant Voucher blocked by Mulesoft production deployment approval",
+      "cn": "PaybyQi二期/商户券需求开量被Mulesoft部署审批阻塞，影响Supply Platform、SPQI-312、SPQI-307",
+      "category": "Third Party",
+      "likelihood": "Medium",
+      "impact": "Medium",
+      "rag": "AMBER",
+      "owner": "王志兴 / Hussain",
+      "mitigationEn": "Requesting Dr. Ammar to approve Mulesoft production deployment to unblock affected features.",
+      "mitigationCn": "请求Dr.Ammar审批Mulesoft生产发布，以解除相关功能阻塞",
+      "due": "31 May 2026"
+    },
+    {
+      "id": "RISK-008",
+      "en": "LBS Google API cost spike due to client-side caching bug causing excessive API calls",
+      "cn": "客户端缓存bug导致Google API费用异常偏高，引发客诉",
+      "category": "Technical",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "王志兴 / Hussain",
+      "mitigationEn": "Short-term: business feature disabled in production; client-side cache fix included in 5B. Long-term: technical refactor plan to be confirmed by Wang Zhixing and Hussain.",
+      "mitigationCn": "短期：生产已禁用业务功能，5B修复客户端缓存；长期：内部技改方案待王志兴和Hussain确认",
+      "due": "07 Jun 2026"
+    },
+    {
+      "id": "RISK-009",
+      "en": "KYC success rate complaint from customer CEO; RCA report submitted but no response from ISC; alignment meeting pending",
+      "cn": "客户CEO投诉KYC成功率低，内部5.11提供RCA报告后客户未反馈，会议无法完成结论确认",
+      "category": "Quality",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "Alan",
+      "mitigationEn": "Deep-dive analysis report drafted and submitted to ISC teams with recommendations. ISC has not yet responded. Planning follow-up meeting with customer.",
+      "mitigationCn": "已提交深入分析报告给ISC各团队，ISC未答复，计划后续约会和用户讨论",
+      "due": ""
+    },
+    {
+      "id": "RISK-010",
+      "en": "Alibaba Cloud resource costs remain high; QI TV marketing activity set excessively high login TPS target",
+      "cn": "阿里云资源成本居高不下，QI TV营销活动登录TPS目标过高是原因之一",
+      "category": "Cost",
+      "likelihood": "Medium",
+      "impact": "Medium",
+      "rag": "AMBER",
+      "owner": "CFO",
+      "mitigationEn": "A+ has emailed ISC recommending TPS reduction to lower configuration and cloud costs. Awaiting ISC CFO approval.",
+      "mitigationCn": "A+已邮件建议ISC降低TPS需求以减少云服务成本，等待ISC CFO批准",
+      "due": ""
+    },
+    {
+      "id": "RISK-011",
+      "en": "Blind user face authentication solution not yet confirmed (delayed 2 months); UAT blocked for SPQI-313 Phase 1",
+      "cn": "盲人人脸认证方案未定（已延期2个月），ISC安全团队尚未就视障用户认证方式作出决定",
+      "category": "Product",
+      "likelihood": "High",
+      "impact": "High",
+      "rag": "RED",
+      "owner": "Joy / Yasir",
+      "mitigationEn": "ISC security team and Yasir must confirm face authentication solution for visually impaired users. Front-end deployed to UAT but go-live blocked.",
+      "mitigationCn": "需要ISC确认视障用户人脸认证方案，否则上线受阻",
+      "due": "30 Apr 2026"
+    },
+    {
+      "id": "RISK-012",
+      "en": "Merchant Operator management: Yasir requesting Groupon capability in Phase 1 (originally excluded from scope)",
+      "cn": "Merchant operator管理：Yasir审批时要求增加Groupon能力（之前明确Phase1不需要）",
+      "category": "Scope",
+      "likelihood": "Medium",
+      "impact": "Medium",
+      "rag": "AMBER",
+      "owner": "Danny / Yasir",
+      "mitigationEn": "PRD and Figma updated to include Groupon capability. Awaiting customer review.",
+      "mitigationCn": "PRD和Figma已更新，等待客户review",
+      "due": ""
+    },
+    {
+      "id": "RISK-013",
+      "en": "Eatix mini-app go-live: RMS mini-app requires changed integration approach; A+ has not developed required interface; customer complained A+ refused to provide timeline",
+      "cn": "Eatix小程序上线：RMS小程序需变更接入方案，A+未收到正式需求确认未开发，Turkyman会议投诉A+拒绝提供timeline",
+      "category": "Delivery",
+      "likelihood": "Medium",
+      "impact": "Medium",
+      "rag": "AMBER",
+      "owner": "Danny / Yasir",
+      "mitigationEn": "Awaiting Yasir to confirm solution and formally request A+ to initiate development.",
+      "mitigationCn": "等待Yasir确认方案，并正式要求A+启动",
+      "due": ""
+    }
+  ],
+  "tickets": [
+    {
+      "id": "SPQI-312",
+      "title": "Pay by Qi (SuperQi as a payment method) - Phase 2",
+      "status": "Done",
+      "team": [
+        {
+          "initials": "JO",
+          "name": "Joy",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "27 Oct 2025",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "20 Nov 2025",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Mulesoft production deployment blocked, affecting Pay by Qi Phase 2 and merchant vouchers"
+      ],
+      "blockers": [
+        "Mulesoft deployment approval blocking production release"
+      ],
+      "risks": [],
+      "todos": [
+        "Unblock Mulesoft production deployment (Dr. Ammar approval)"
+      ]
+    },
+    {
+      "id": "SPQI-316",
+      "title": "Integration with User Behavior Analysis Tool",
+      "status": "Blocked",
+      "team": [
+        {
+          "initials": "LI",
+          "name": "Lia",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "陈都",
+          "name": "陈都",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "CH",
+          "name": "ChenXi",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "27 Feb 2026",
+          "state": "done"
+        },
+        {
+          "name": "BRD",
+          "date": "27 Feb 2026",
+          "state": "done"
+        },
+        {
+          "name": "PRD",
+          "date": "22 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "19 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "07 Jun 2026",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Amplitude production API key not yet provided by ISC",
+        "ISC security team data-forwarding solution not yet confirmed"
+      ],
+      "blockers": [
+        "Production release blocked pending API key and data-forwarding approval"
+      ],
+      "risks": [
+        "5B release may be blocked if no decision by 29 May"
+      ],
+      "todos": [
+        "Hussain Y / Sahar: confirm Option 1 (provide API key + confirm data forwarding) or Option 2 (carve out SDK) by 29 May"
+      ]
+    },
+    {
+      "id": "SPQI-307",
+      "title": "Display International Velocity Limits (Remaining Amounts)",
+      "status": "In Progress",
+      "team": [
+        {
+          "initials": "YI",
+          "name": "Yinan",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "梁艳",
+          "name": "梁艳杰",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "CH",
+          "name": "ChenXi",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        },
+        {
+          "initials": "EK",
+          "name": "Ekta",
+          "role": "ISC PM",
+          "org": "ISC",
+          "color": "av-co"
+        },
+        {
+          "initials": "KO",
+          "name": "Kola",
+          "role": "A+ ISA",
+          "org": "A+",
+          "color": "av-am"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "06 Jan 2026",
+          "state": "done"
+        },
+        {
+          "name": "BRD",
+          "date": "06 Jan 2026",
+          "state": "done"
+        },
+        {
+          "name": "PRD",
+          "date": "26 Jan 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "16 Mar 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "13 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "22 Apr 2026",
+          "state": "done"
+        }
+      ],
+      "issues": [
+        "Mulesoft production deployment blocked — affecting this feature (velocity limit display)"
+      ],
+      "blockers": [
+        "Mulesoft deployment approval from Dr. Ammar required before go-live"
+      ],
+      "risks": [
+        "Feature cannot go live until Mulesoft deployment is approved"
+      ],
+      "todos": [
+        "Request Mulesoft production deployment approval from Dr. Ammar"
+      ]
+    },
+    {
+      "id": "SPQI-313",
+      "title": "Accessibility Improvements for Visually Impaired Users - Phase 1",
+      "status": "In Progress",
+      "team": [
+        {
+          "initials": "JO",
+          "name": "Joy",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "庄晨",
+          "name": "庄晨",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "25 Feb 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "11 Feb 2026",
+          "state": "done"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Blind user face authentication solution not yet confirmed (delayed 2 months)"
+      ],
+      "blockers": [
+        "Front-end deployed to UAT only; UAT blocked because blind users cannot complete face authentication"
+      ],
+      "risks": [
+        "Go-live blocked until ISC security team confirms authentication approach for visually impaired users"
+      ],
+      "todos": [
+        "ISC to confirm face authentication solution for visually impaired users (Yasir/Zohdi)"
+      ]
+    },
+    {
+      "id": "SPQI-1239",
+      "title": "Connect to Alipay+ CsB-phase1",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "JO",
+          "name": "Joy",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "樊亚",
+          "name": "樊亚宁",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "04 Feb 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "30 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "20 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "07 Jun 2026",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Cashback refund security issue flagged during 5A pen test; short-term fix awaiting ISC security approval"
+      ],
+      "blockers": [],
+      "risks": [
+        "If short-term fix not approved, 5B release may be impacted"
+      ],
+      "todos": [
+        "Hussein Adnan/Sahar: confirm ISC security approval for short-term cashback fix"
+      ]
+    },
+    {
+      "id": "SPQI-4578",
+      "title": "Deeplink for Mini App Specific Page Cannot Be Opened",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "YI",
+          "name": "Yinan",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "赵五",
+          "name": "赵五一",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "LY",
+          "name": "Li Yuxuan",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "11 Mar 2026",
+          "state": "done"
+        },
+        {
+          "name": "BRD",
+          "date": "11 Mar 2026",
+          "state": "done"
+        },
+        {
+          "name": "PRD",
+          "date": "",
+          "state": "late"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "late"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "",
+          "state": "late"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "07 Jun 2026",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Ticket currently in UAT phase"
+      ],
+      "blockers": [],
+      "risks": [],
+      "todos": []
+    },
+    {
+      "id": "SPQI-2127",
+      "title": "Accessibility Improvements for Visually Impaired Users - Phase 2",
+      "status": "In Progress",
+      "team": [
+        {
+          "initials": "JO",
+          "name": "Joy",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "庄晨",
+          "name": "庄晨",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "11 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "07 Jun 2026",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Pending confirmation of face authentication solution from Phase 1 (SPQI-313)"
+      ],
+      "blockers": [
+        "Cannot proceed until Phase 1 blocker resolved"
+      ],
+      "risks": [],
+      "todos": [
+        "Resolve SPQI-313 face authentication decision first"
+      ]
+    },
+    {
+      "id": "SPQI-4573",
+      "title": "Display Miles & Smiles Card in SuperQi Cards Page with Mini App Button",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "LI",
+          "name": "Lia",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "邱少",
+          "name": "邱少荣",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "16 Mar 2026",
+          "state": "done"
+        },
+        {
+          "name": "BRD",
+          "date": "17 Mar 2026",
+          "state": "done"
+        },
+        {
+          "name": "PRD",
+          "date": "21 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "12 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Ticket currently in UAT phase"
+      ],
+      "blockers": [],
+      "risks": [],
+      "todos": []
+    },
+    {
+      "id": "SPQI-1238",
+      "title": "A+ Int. Network - BSC QR Code, Business to Customer",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "JO",
+          "name": "Joy",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "樊亚",
+          "name": "樊亚宁",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "21 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "30 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "20 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "07 Jun 2026",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "A+ network integration contract not yet signed"
+      ],
+      "blockers": [
+        "Contract not signed; ISC written approval needed for prod release without signed contract"
+      ],
+      "risks": [
+        "If production acceptance not completed by end of June, next window is July"
+      ],
+      "todos": [
+        "Sahar/Yasir: provide written approval for prod release without signed contract"
+      ]
+    },
+    {
+      "id": "SPQI-4637",
+      "title": "Selected Time Period on Groupon Homepage Not Preserved After Reopening",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "DA",
+          "name": "Danny",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "黄炜",
+          "name": "黄炜雄",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "29 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Ticket currently in UAT phase"
+      ],
+      "blockers": [],
+      "risks": [],
+      "todos": []
+    },
+    {
+      "id": "SPQI-4779",
+      "title": "Remove All Name Validation Rules in SuperQi to Support All Characters",
+      "status": "Blocked",
+      "team": [
+        {
+          "initials": "LI",
+          "name": "Lia",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "张月",
+          "name": "张月红",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "TS",
+          "name": "Tian ShanShan",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "",
+          "state": "late"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "late"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "19 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "ISC UAT not yet completed as of 25 May — customer switched QA mid-UAT; only ~50% complete; extended by at least 2 days"
+      ],
+      "blockers": [
+        "IDMS test data errors preventing card-related scenario acceptance tests"
+      ],
+      "risks": [
+        "May require scope carve-out if UAT not completed before 5B release"
+      ],
+      "todos": [
+        "IDMS to provide corrected test data by 27 May",
+        "ISC to complete UAT or Hussain to decide on carve-out"
+      ]
+    },
+    {
+      "id": "SPQI-4836",
+      "title": "A+ International Network - Settlement",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "JO",
+          "name": "Joy",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "胡鹏",
+          "name": "胡鹏",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "KI",
+          "name": "Kira",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "04 Feb 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "20 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "A+ network integration contract not yet signed; settlement is part of same integration"
+      ],
+      "blockers": [
+        "Contract signature pending"
+      ],
+      "risks": [
+        "Release delayed to July if June deadline missed"
+      ],
+      "todos": [
+        "Follow up on contract signing; ISC written approval needed"
+      ]
+    },
+    {
+      "id": "SPQI-4719",
+      "title": "New Scope For MiniApps \"account_list\"",
+      "status": "Done",
+      "team": [
+        {
+          "initials": "徐鹏",
+          "name": "徐鹏博",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "CH",
+          "name": "ChenXi",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "BRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "PRD",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "21 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "28 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "07 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "",
+          "state": "pending"
+        }
+      ],
+      "issues": [],
+      "blockers": [],
+      "risks": [],
+      "todos": []
+    },
+    {
+      "id": "SPQI-1782",
+      "title": "Enable Secure View Card Details",
+      "status": "In Review",
+      "team": [
+        {
+          "initials": "YI",
+          "name": "Yinan",
+          "role": "PD",
+          "org": "A+",
+          "color": "av-bl"
+        },
+        {
+          "initials": "文梦",
+          "name": "文梦婷",
+          "role": "Feature Owner",
+          "org": "A+",
+          "color": "av-tl"
+        },
+        {
+          "initials": "TS",
+          "name": "Tian ShanShan",
+          "role": "UAT QA",
+          "org": "A+",
+          "color": "av-pu"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Requirement Collection",
+          "date": "06 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "BRD",
+          "date": "08 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "PRD",
+          "date": "20 Apr 2026",
+          "state": "done"
+        },
+        {
+          "name": "UIUX",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "ISA",
+          "date": "",
+          "state": "late"
+        },
+        {
+          "name": "Dev",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Integration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "UAT",
+          "date": "19 May 2026",
+          "state": "done"
+        },
+        {
+          "name": "Penetration Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Regression Test",
+          "date": "",
+          "state": "pending"
+        },
+        {
+          "name": "Release",
+          "date": "01 Jun 2026",
+          "state": "pending"
+        },
+        {
+          "name": "App Force Upgrade",
+          "date": "07 Jun 2026",
+          "state": "pending"
+        }
+      ],
+      "issues": [
+        "Ticket currently in UAT phase"
+      ],
+      "blockers": [],
+      "risks": [],
+      "todos": []
+    }
+  ],
+  "todos": [
+    {
+      "party": "ISC",
+      "items": [
+        {
+          "en": "Follow up with ISC security team to expedite pen test report review and approval for 5B release",
+          "cn": "跟进ISC安全团队加快渗透测试报告审批，确保5B发布不受阻",
+          "owner": "Sahar / Adnan",
+          "deadline": "31 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "5B Release"
+        },
+        {
+          "en": "IDMS: provide corrected test data for SPQI-4779 card-related acceptance tests",
+          "cn": "IDMS在27号前提供SPQI-4779正确测试数据，支持卡相关场景验收",
+          "owner": "IDMS",
+          "deadline": "27 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "SPQI-4779"
+        },
+        {
+          "en": "Confirm SPQI-4779 UAT completion or provide scope carve-out decision",
+          "cn": "完成SPQI-4779 UAT或Hussain给出需求剥离决策（无开关）",
+          "owner": "Hussain Y",
+          "deadline": "27 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "SPQI-4779"
+        },
+        {
+          "en": "Confirm Amplitude: Option 1 (provide API key + data forwarding solution, no new requirements) or Option 2 (carve out SDK)",
+          "cn": "确认Amplitude方案：方案1（提供API key+确认数据转发）或方案2（剥离SDK）",
+          "owner": "Hussain Y",
+          "deadline": "29 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "SPQI-316"
+        },
+        {
+          "en": "Provide written approval for A+ International Network prod release without signed contract",
+          "cn": "书面批准A+国际网络无合同生产发布（CSB/BSC/Settlement）",
+          "owner": "Sahar / Yasir",
+          "deadline": "01 Jun 2026",
+          "deadlineLevel": "warn",
+          "tag": "Network"
+        },
+        {
+          "en": "Confirm short-term cashback refund fix approval for 5B release; finalize long-term solution with ISC BA/Marketing",
+          "cn": "确认cashback refund短期方案是否放行5B；与ISC BA/Marketing确认长期方案",
+          "owner": "Hussein Adnan / Sahar",
+          "deadline": "31 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "Security"
+        },
+        {
+          "en": "Confirm face authentication solution for visually impaired users (SPQI-313 / SPQI-2127)",
+          "cn": "确认视障用户人脸认证方案，解除SPQI-313/SPQI-2127上线阻塞",
+          "owner": "Yasir / Zohdi",
+          "deadline": "",
+          "deadlineLevel": "none",
+          "tag": "Accessibility"
+        },
+        {
+          "en": "Approve TPS reduction recommendation to reduce Alibaba Cloud costs",
+          "cn": "批准A+降低TPS需求建议，以减少阿里云配置和云服务成本",
+          "owner": "ISC CFO",
+          "deadline": "",
+          "deadlineLevel": "none",
+          "tag": "Cost"
+        }
+      ]
+    },
+    {
+      "party": "A+",
+      "items": [
+        {
+          "en": "Continue KYC success rate deep-dive; schedule alignment meeting with ISC and customer to close RCA",
+          "cn": "继续KYC成功率深入分析，约会ISC和用户讨论，完成RCA确认",
+          "owner": "Alan",
+          "deadline": "",
+          "deadlineLevel": "none",
+          "tag": "KYC"
+        },
+        {
+          "en": "Monitor 5B pen test report responses from ISC; escalate if no sign-off received before release date",
+          "cn": "监控ISC对5B渗透测试报告的响应，如发布前未收到批复需升级处理",
+          "owner": "张鸿",
+          "deadline": "31 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "5B Release"
+        }
+      ]
+    },
+    {
+      "party": "IDMS",
+      "items": [
+        {
+          "en": "Provide corrected test data for SPQI-4779 (name validation / card-related scenarios) to unblock ISC UAT",
+          "cn": "提供SPQI-4779正确测试数据（姓名验证/卡相关场景），解除ISC UAT阻塞",
+          "owner": "IDMS",
+          "deadline": "27 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "SPQI-4779"
+        }
+      ]
+    },
+    {
+      "party": "Mulesoft",
+      "items": [
+        {
+          "en": "Obtain Dr. Ammar's approval for Mulesoft production deployment to unblock Supply Platform, SPQI-312 and SPQI-307",
+          "cn": "获得Dr.Ammar的Mulesoft生产部署审批，解除供给平台、SPQI-312和SPQI-307的阻塞",
+          "owner": "王志兴",
+          "deadline": "31 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "Mulesoft"
+        },
+        {
+          "en": "Mulesoft to provide development progress plan for LBS/Main Search features",
+          "cn": "Mulesoft提供LBS/主搜功能开发进度计划",
+          "owner": "Iman",
+          "deadline": "31 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "LBS"
+        }
+      ]
+    },
+    {
+      "party": "Regula",
+      "items": [
+        {
+          "en": "Coordinate on outstanding Regula SDK (SPQI-340) pen test issues requiring clarification from ISC security team",
+          "cn": "协调Regula SDK (SPQI-340)待澄清的渗透测试问题，等待ISC安全团队确认",
+          "owner": "ISC Security",
+          "deadline": "31 May 2026",
+          "deadlineLevel": "hot",
+          "tag": "SPQI-340"
+        }
+      ]
+    },
+    {
+      "party": "CMS",
+      "items": [
+        {
+          "en": "Confirm Merchant Operator management Phase 1 Groupon capability scope update with Yasir",
+          "cn": "与Yasir确认商户管理Phase1 Groupon能力范围更新，完成PRD/Figma客户review",
+          "owner": "Danny",
+          "deadline": "",
+          "deadlineLevel": "none",
+          "tag": "Merchant"
+        },
+        {
+          "en": "Confirm Eatix mini-app integration solution and formally initiate A+ development",
+          "cn": "确认Eatix小程序接入方案，正式要求A+启动开发",
+          "owner": "Yasir",
+          "deadline": "",
+          "deadlineLevel": "none",
+          "tag": "MiniApp"
+        }
+      ]
+    }
+  ]
+};
 
 // ══ INIT ══
-document.getElementById('footer-date').textContent = new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'});
+document.getElementById('footer-date').textContent=new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'});
+document.getElementById('login-user').focus();
 </script>
 </body>
 </html>
